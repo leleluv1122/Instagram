@@ -7,6 +7,6 @@
 <title>Outstagram</title>
 </head>
 <body>
-	<img src="/images/main_insta1.JPG">
+	메인
 </body>
 </html>

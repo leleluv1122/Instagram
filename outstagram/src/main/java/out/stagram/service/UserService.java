@@ -36,11 +36,11 @@ public class UserService {
 	public boolean hasErrors(UserRegistrationModel userModel, BindingResult bindingResult) {
 		if (bindingResult.hasErrors())
 			return true;
-		if (userModel.getPasswd1().equals(userModel.getPasswd2()) == false) {
-			bindingResult.rejectValue("passwd2", null, "비밀번호가 일치하지 않습니다.");
-			return true;
-		}
-
+		/*
+		 * if (userModel.getPasswd1().equals(userModel.getPasswd2()) == false) {
+		 * bindingResult.rejectValue("passwd2", null, "비밀번호가 일치하지 않습니다."); return true;
+		 * }
+		 */
 		User user = userRepository.findOneByUserId(userModel.getUserid());
 		if (user != null) {
 			bindingResult.rejectValue("userid", null, "사용자 아이디가 중복됩니다.");
