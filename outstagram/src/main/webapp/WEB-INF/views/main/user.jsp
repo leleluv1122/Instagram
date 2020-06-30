@@ -4,8 +4,6 @@
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE>
 <html>
 <head>
@@ -25,15 +23,31 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,900&display=swap"
 	rel="stylesheet">
-<link rel="stylesheet" href="/res/main.css" type="text/css">
-<script src="/res/js/slidejquery.js"></script>
-<script src="/res/js/jquery.bxslider.min.js"></script>
-<link rel="stylesheet" href="/res/jquery.bxslider.min.css">
+<title>Outstagram</title>
 <style>
+body {
+	font-family: 'Poor Story', cursive;
+}
 
+.title {
+	margin-left: 180px;
+	font-size: 30px;
+	font-family: 'Playfair Display', serif;
+	text-decoration: none;
+}
+
+.title_ft {
+	color: black;
+	text-decoration: none;
+}
 </style>
 </head>
 <body>
-	
+	<div class="container">
+		<div class="nav">
+			<span class="title"> <a href="/main" class="title_ft"
+				style="margin-right: 100px;">sh_leluvvv</a></span>
+		</div>
+	</div>
 </body>
 </html>

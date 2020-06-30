@@ -19,6 +19,7 @@ public class User {
 	String password;
 	String name;
 	String introduce;
+	String profile_photo;
 	String phone;
 	String website;
 	String userType;

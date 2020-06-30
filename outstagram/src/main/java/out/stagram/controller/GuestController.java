@@ -31,8 +31,7 @@ public class GuestController {
 	@RequestMapping(value = "guest/register", method = RequestMethod.POST)
 	public String register(@Valid UserRegistrationModel userModel, BindingResult bindingResult, Model model) throws Exception{
 		if (userService.hasErrors(userModel, bindingResult)) {
-			
-			return "shop/register";
+			return "/guest/register";
 		}
 		userService.save(userModel);
 		return "redirect:/guest/login";
