@@ -67,7 +67,7 @@
 			</div>
 
 			<div class="r">
-				<div class="navv" style="margin-left: 20px;">
+				<div style="margin-left: 20px;">
 					<div class="title_image">
 						<img src="/images/profile/sn.jpg" class="tiny_image" align="left">
 					</div>
@@ -132,7 +132,7 @@
 			aria-hidden="true"></span></a> <a href=""><span
 			class="glyphicon glyphicon-upload"
 			style="color: black; font-size: 30px; margin-top: 13px; margin-left: 100px;"
-			aria-hidden="true"></span></a><a href=""><span
+			aria-hidden="true"></span></a><a href="/main/user/${user.name}"><span
 			class="glyphicon glyphicon-user"
 			style="color: black; font-size: 30px; margin-top: 13px; margin-left: 120px;"
 			aria-hidden="true"></span></a>
