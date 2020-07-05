@@ -31,18 +31,22 @@
 <link rel="stylesheet" href="/res/jquery.bxslider.min.css">
 </head>
 <body>
+	<sec:authentication property="user.id" var="currentid" />
 	<a href="/main"><span class="glyphicon glyphicon-home"
-		style="color: black; font-size: 30px; margin-top: 13px; margin-left: 60px;"
+		style="color: #6fff59; font-size: 30px; margin-top: 13px; margin-left: 50px;"
 		aria-hidden="true"></span></a>
 	<a href=""><span class="glyphicon glyphicon-search"
-		style="color: black; font-size: 30px; margin-top: 13px; margin-left: 110px;"
+		style="color: #6193ff; font-size: 30px; margin-top: 13px; margin-left: 80px;"
 		aria-hidden="true"></span></a>
-	<a href=""><span class="glyphicon glyphicon-upload"
-		style="color: black; font-size: 30px; margin-top: 13px; margin-left: 100px;"
+	<a href="/main/upload"><span class="glyphicon glyphicon-plus-sign"
+		style="color: #c061ff; font-size: 30px; margin-top: 13px; margin-left: 80px;"
 		aria-hidden="true"></span></a>
-	<a href="/main/user/${user.id}"><span
+	<a href=""><span class="glyphicon glyphicon-heart"
+		style="color: #ff6161; font-size: 30px; margin-top: 13px; margin-left: 80px;"
+		aria-hidden="true"></span></a>
+	<a href="/main/user/${currentid}"><span
 		class="glyphicon glyphicon-user"
-		style="color: black; font-size: 30px; margin-top: 13px; margin-left: 120px;"
+		style="color: gray; font-size: 30px; margin-top: 13px; margin-left: 80px;"
 		aria-hidden="true"></span></a>
 </body>
 </html>

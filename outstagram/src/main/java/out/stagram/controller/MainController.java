@@ -32,7 +32,7 @@ public class MainController {
 	}
 
 	@RequestMapping("/main/user/{id}")
-	public String main_user(@PathVariable("id") String id, Model model) throws Exception {
+	public String main_user(@PathVariable("id") int id, Model model) throws Exception {
 		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
 
 		model.addAttribute("user", userService.findByUserId(userId));
@@ -78,8 +78,27 @@ public class MainController {
 		String name = request.getParameter("name");
 		String website = request.getParameter("website");
 		String introduce = request.getParameter("intro");
-		
+
 		userService.profile_update(userId, name, website, introduce);
 		return redirect_url;
+	}
+
+	@RequestMapping(value = "/main/upload", method = RequestMethod.GET)
+	public String upload(Model model) throws Exception {
+			
+		return "/main/upload";
+	}
+	
+	@RequestMapping("/main/posting")
+	public String posting(HttpServletRequest request, Model model) throws Exception {
+		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+		String path = "D:/OutStagram/Instagram/outstagram/src/main/resources/static/images/" + userId;
+		File file = new File(path);
+		
+		if(!file.exists()) {
+			file.mkdirs();
+		}		
+		
+		return "redirect:/main";
 	}
 }

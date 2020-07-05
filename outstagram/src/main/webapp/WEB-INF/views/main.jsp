@@ -99,7 +99,7 @@
 						<img src="/images/profile/sn.jpg" class="tiny_image" align="left">
 					</div>
 					<div class="userid_txt">
-						<span style="font-size: 18px; margin-left: 9px;">sh_leluvv</span>
+						<span style="font-size: 18px; margin-left: 9px;">aaa111</span>
 					</div>
 				</div>
 				<div id="gallery_wrap">
