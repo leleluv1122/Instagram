@@ -29,11 +29,20 @@
 <script src="/res/js/slidejquery.js"></script>
 <script src="/res/js/jquery.bxslider.min.js"></script>
 <link rel="stylesheet" href="/res/jquery.bxslider.min.css">
-<style>
-
-</style>
 </head>
 <body>
-	
+	<a href="/main"><span class="glyphicon glyphicon-home"
+		style="color: black; font-size: 30px; margin-top: 13px; margin-left: 60px;"
+		aria-hidden="true"></span></a>
+	<a href=""><span class="glyphicon glyphicon-search"
+		style="color: black; font-size: 30px; margin-top: 13px; margin-left: 110px;"
+		aria-hidden="true"></span></a>
+	<a href=""><span class="glyphicon glyphicon-upload"
+		style="color: black; font-size: 30px; margin-top: 13px; margin-left: 100px;"
+		aria-hidden="true"></span></a>
+	<a href="/main/user/${user.id}"><span
+		class="glyphicon glyphicon-user"
+		style="color: black; font-size: 30px; margin-top: 13px; margin-left: 120px;"
+		aria-hidden="true"></span></a>
 </body>
 </html>

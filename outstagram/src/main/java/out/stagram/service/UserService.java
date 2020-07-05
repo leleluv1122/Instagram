@@ -66,4 +66,24 @@ public class UserService {
 		User user = createEntity(userModel);
 		userRepository.save(user);
 	}
+	
+	public void img_update(String userId, String profile_photo) {
+		User user = findByUserId(userId);
+		user.setProfile_photo(profile_photo);
+		
+		save_u(user);
+	}
+	
+	public void profile_update(String userId, String name, String website, String introduce) {
+		User user = findByUserId(userId);
+		user.setName(name);
+		user.setWebsite(website);
+		user.setIntroduce(introduce);
+		
+		save_u(user);
+	}
+	
+	public void save_u(User user) {
+		userRepository.save(user);
+	}
 }

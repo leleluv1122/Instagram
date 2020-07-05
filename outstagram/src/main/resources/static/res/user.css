@@ -1,0 +1,66 @@
+body {
+	font-family: 'Poor Story', cursive;
+}
+
+.nav {
+	width: 500px;
+	height: 40px;
+}
+
+.title {
+	margin-left: 150px;
+	font-size: 30px;
+	/* font-family: 'Playfair Display', serif; */
+	text-decoration: none;
+}
+
+.title_image {
+	margin-left: 30px;
+	height: 100px;
+	width: 110px;
+	float: left;
+}
+
+.title_ft {
+	color: black;
+	text-decoration: none;
+}
+
+.profile {
+	margin-top: 10px;
+	margin-left: 40px;
+	height: 100px;
+	width: 500px;
+}
+
+.profile_image {
+	width: 90px;
+	height: 90px;
+	border-radius: 45px;
+}
+
+.txt {
+	margin-left: 30px;
+	height: 100px;
+	width: 80px;
+	float: left;
+	margin-top: 15px;
+}
+
+._info {
+	height: 80px;
+	width: 500px;
+}
+
+#footer {
+	position: fixed;
+	background-color: white; /*임의색상*/
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 6rem;
+}
+
+#contents {
+	bottom: 6rem;
+}
