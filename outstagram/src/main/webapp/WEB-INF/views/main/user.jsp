@@ -64,8 +64,8 @@
 		</div>
 
 		<div class="_info">
-			<span style="margin-left: 80px;">${user.introduce}</span><br /> <span
-				style="margin-left: 80px;">${user.website}</span>
+			<span style="margin-left: 80px;">${user.introduce}</span><br /> <a
+				href="${user.website}" style="margin-left: 80px; color: black;">${user.website}</a>
 		</div>
 
 		<div class="fix">

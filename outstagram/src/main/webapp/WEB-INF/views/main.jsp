@@ -66,58 +66,42 @@
 					style="color: black;" aria-hidden="true"></span></a>
 			</div>
 
-			<div class="r">
-				<div style="margin-left: 20px;">
-					<div class="title_image">
-						<img src="/images/profile/sn.jpg" class="tiny_image" align="left">
+			<c:forEach var="p" items="${posting}">
+				<div class="r">
+					<div style="margin-left: 20px;">
+						<div class="title_image">
+							<a href="/main/user/${p.user.id}"> <img
+								src="/images/profile/${p.user.profile_photo}" class="tiny_image"
+								align="left">
+							</a>
+						</div>
+						<div class="userid_txt">
+							<a href="/main/user/${p.user.id}"
+								style="font-size: 18px; color: black; margin-left: 9px;">${p.user.userId}</a>
+						</div>
 					</div>
-					<div class="userid_txt">
-						<span style="font-size: 18px; margin-left: 9px;">sh_leluvv</span>
+					<div id="gallery_wrap">
+						<ul class="slide_gallery">
+							<c:forEach var="img" items="${img}">
+								<c:if test="${p.id == img.postId}">
+									<li><img src="/images/${p.user.userId}/${img.filename}"
+										class="imgg"></li>
+								</c:if>
+							</c:forEach>
+						</ul>
+					</div>
+					<div class="bar">
+						<span class="glyphicon glyphicon-heart-empty" aria-hidden="true"
+							style="margin-left: 45px; font-size: 18px; color: red;"></span> <span
+							class="glyphicon glyphicon-comment" aria-hidden="true"
+							style="margin-left: 15px; font-size: 18px; color: purple"></span>
+					</div>
+					<div class="write">
+						<span>${p.description}</span>
 					</div>
 				</div>
-				<div id="gallery_wrap">
-					<ul class="slide_gallery">
-						<li><img src="/images/photo/p1.jpg" class="imgg"></li>
-						<li><img src="/images/photo/p2.jpg" class="imgg"></li>
-					</ul>
-				</div>
-				<div class="bar">
-					<span class="glyphicon glyphicon-heart-empty" aria-hidden="true"
-						style="margin-left: 45px; font-size: 18px; color: red;"></span> <span
-						class="glyphicon glyphicon-comment" aria-hidden="true"
-						style="margin-left: 15px; font-size: 18px; color: purple"></span>
-				</div>
-				<div class="write">
-					<span>찬이랑 승희사진</span>
-				</div>
-			</div>
+			</c:forEach>
 
-
-			<div class="r">
-				<div class="navv" style="margin-left: 20px;">
-					<div class="title_image">
-						<img src="/images/profile/sn.jpg" class="tiny_image" align="left">
-					</div>
-					<div class="userid_txt">
-						<span style="font-size: 18px; margin-left: 9px;">aaa111</span>
-					</div>
-				</div>
-				<div id="gallery_wrap">
-					<ul class="slide_gallery">
-						<li><img src="/images/photo/p1.jpg" class="imgg"></li>
-						<li><img src="/images/photo/p2.jpg" class="imgg"></li>
-					</ul>
-				</div>
-				<div class="bar">
-					<span class="glyphicon glyphicon-heart-empty" aria-hidden="true"
-						style="margin-left: 45px; font-size: 18px; color: red;"></span> <span
-						class="glyphicon glyphicon-comment" aria-hidden="true"
-						style="margin-left: 15px; font-size: 18px; color: purple"></span>
-				</div>
-				<div class="write">
-					<span>찬이랑 승희사진</span>
-				</div>
-			</div>
 		</div>
 
 
