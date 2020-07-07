@@ -40,7 +40,7 @@ public class MainController {
 		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
 		User u = userService.findByUserId(userId);
 		model.addAttribute("user", u);
-		
+
 		model.addAttribute("posting", postService.findByUserIdOrderByIdDesc(u.getId()));
 		model.addAttribute("img", piService.findAll());
 		return "/main";
@@ -48,9 +48,13 @@ public class MainController {
 
 	@RequestMapping("/main/user/{id}")
 	public String main_user(@PathVariable("id") int id, Model model) throws Exception {
-		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+		model.addAttribute("page_id", id);
+		model.addAttribute("user", userService.findById(id));
+		model.addAttribute("post", postService.findByUserIdOrderByIdDesc(id));
+		model.addAttribute("post_image", piService.findByGroupbyPostId());
 
-		model.addAttribute("user", userService.findByUserId(userId));
+		model.addAttribute("post_count", postService.countByUserId(id));
+
 		return "/main/user";
 	}
 
@@ -58,7 +62,7 @@ public class MainController {
 	public String update_user(@PathVariable("id") int id, Model model) throws Exception {
 		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
 
-		model.addAttribute("user", userService.findByUserId(userId));
+		model.addAttribute("user", userService.findById(id));
 		return "/main/user/update";
 	}
 
@@ -122,11 +126,10 @@ public class MainController {
 		String description = request.getParameter("description");
 		String location = request.getParameter("location");
 
-		
 		post.setDescription(description);
 		post.setLocation(location);
 		post.setUser(user);
-		
+
 		post.setId(postService.save(post));
 		postService.flush();
 
@@ -139,18 +142,43 @@ public class MainController {
 			String newFile_name = rnd(original_name, f.getBytes(), path);
 			pi.setFilename(newFile_name);
 			pi.setPostId(post.getId());
-			
+
 			piService.save(pi);
 		}
 
 		return "redirect:/main";
 	}
 
+	@RequestMapping("/main/recommend")
+	public String recommend(Model model) throws Exception {
+
+		return "/main/recommend";
+	}
+
+	@RequestMapping(value = "main/search")
+	public String search(@RequestParam("word") String word, Model model) throws Exception {
+		if (word == "") {
+			return "redirect:/main/recommend";
+		}
+		model.addAttribute("find_user", userService.findByUserIdContains(word));
+		model.addAttribute("word", word);
+
+		return "main/search";
+	}
+
+	@RequestMapping(value = "main/post/{id}")
+	public String post(@PathVariable("id") int id, Model model) throws Exception {
+		model.addAttribute("p", postService.findById(id));
+		model.addAttribute("img", piService.findBypostId(id));
+		
+		return "main/post";
+	}
+
 	private String rnd(String originalName, byte[] fileData, String path) throws Exception {
 		UUID uuid = UUID.randomUUID();
 		String savedName = uuid.toString() + "_" + originalName;
 		File target = new File(path, savedName);
-		
+
 		FileCopyUtils.copy(fileData, target);
 		return savedName;
 	}

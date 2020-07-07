@@ -25,6 +25,35 @@
 	rel="stylesheet">
 <link rel="stylesheet" href="/res/user.css" type="text/css">
 <title>Outstagram</title>
+<style>
+.posting {
+	width: 500px;
+	margin-left: 60px;
+	margin-top: 20px;
+}
+
+/* .well {
+	padding: 0px;
+	background-color: #f8f9fa;
+	border-radius: 8px;
+	height: 160px;
+	width: 160px;
+	float: left;
+	margin: 25px;
+	cursor: pointer;
+} */
+.post_title {
+	float: left;
+	cursor: pointer;
+	height: 160px;
+	width: 160px;
+	overflow: hidden;
+	position: relative;
+	height: 160px;
+	width: 160px;
+	width: 160px;
+}
+</style>
 </head>
 <body>
 	<div class="contents">
@@ -68,9 +97,45 @@
 				href="${user.website}" style="margin-left: 80px; color: black;">${user.website}</a>
 		</div>
 
-		<div class="fix">
-			<a href="update/${user.id}" class="btn btn-default"
-				style="margin-left: 110px; width: 370px;">프로필 수정</a>
+		<sec:authentication property="user.id" var="currentid" />
+
+		<c:choose>
+			<c:when test="${page_id == currentid}">
+				<div class="fix">
+					<a href="update/${user.id}" class="btn btn-default"
+						style="margin-left: 110px; width: 370px;">프로필 수정</a>
+				</div>
+			</c:when>
+
+			<c:otherwise>
+				<div class="fix">
+					<!-- 팔로잉/언팔로잉 버튼 + 메시지 버튼 -->
+				</div>
+			</c:otherwise>
+		</c:choose>
+
+
+		<div class="posting">
+			<c:choose>
+				<c:when test="${post_count != 0}">
+					<c:forEach var="p" items="${post}">
+						<c:forEach var="pi" items="${post_image}">
+							<c:if test="${p.id == pi.postId}">
+								<div onclick="location.href='/main/post/${p.id}'">
+									<img src="/images/${p.user.userId}/${pi.filename}"
+										class="post_title">
+								</div>
+							</c:if>
+						</c:forEach>
+					</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<div class="empty" style="margin-top: 20px;">
+						<span>사진 공유</span> <br /> <span>사진과 동영상을 공유하면 프로필에 표시됩니다.</span>
+						<br /> <a href="/main/upload">첫 번째 사진을 공유해보세요</a>
+					</div>
+				</c:otherwise>
+			</c:choose>
 		</div>
 	</div>
 

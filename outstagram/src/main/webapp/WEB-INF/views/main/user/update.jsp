@@ -138,17 +138,17 @@ input.form-control.w200 {
 				<div class="form-group">
 					<label for="name">이름</label><input type="text"
 						class="form-control w200" id="name" name="name" placeholder="이름"
-						value="${user.name}" required />
+						value="${user.name}" />
 				</div>
 				<div class="form-group">
 					<label for="website">웹사이트</label><input type="text"
 						class="form-control w200" id="website" name="website"
-						placeholder="웹사이트" value="${user.website}" required />
+						placeholder="웹사이트" value="${user.website}" />
 				</div>
 				<div class="form-group">
 					<label for="intro">소개</label><input type="text"
 						class="form-control w200" id="intro" name="intro" placeholder="소개"
-						value="${user.introduce}" required />
+						value="${user.introduce}" />
 				</div>
 				<button type="submit" style="margin-left: 250px;"
 					class="btn btn-default">완료</button>

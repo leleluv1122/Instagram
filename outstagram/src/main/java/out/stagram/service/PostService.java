@@ -28,8 +28,8 @@ public class PostService {
 		return pi.getId();
 	}
 	
-	public void findById(int id) {
-		postRepository.findById(id);
+	public Post findById(int id) {
+		return postRepository.findById(id);
 	}
 	
 	public void flush() {
@@ -38,5 +38,9 @@ public class PostService {
 	
 	public List<Post> findByUserIdOrderByIdDesc(int id){
 		return postRepository.findByUserIdOrderByIdDesc(id);
+	}
+	
+	public int countByUserId(int id) {
+		return postRepository.countByUserId(id);
 	}
 }

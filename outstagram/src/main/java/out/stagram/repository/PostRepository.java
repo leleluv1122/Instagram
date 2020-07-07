@@ -8,4 +8,8 @@ import out.stagram.domain.Post;
 
 public interface PostRepository extends JpaRepository<Post, Integer> {
 	List<Post> findByUserIdOrderByIdDesc(int id);
+
+	int countByUserId(int id);
+	
+	Post findById(int id);
 }

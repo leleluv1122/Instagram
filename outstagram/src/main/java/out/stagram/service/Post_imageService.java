@@ -11,18 +11,26 @@ import out.stagram.repository.Post_imageRepository;
 @Service
 public class Post_imageService {
 	@Autowired
-	Post_imageRepository piRespository;
-	
+	Post_imageRepository piRepository;
+
 	public void save(Post_image pi) {
 		Post_image p = new Post_image();
 		p.setFilename(pi.getFilename());
 		p.setFileOriname(pi.getFileOriname());
 		p.setPostId(pi.getPostId());
-		
-		piRespository.save(p);
+
+		piRepository.save(p);
+	}
+
+	public List<Post_image> findAll() {
+		return piRepository.findAll();
+	}
+
+	public List<Post_image> findByGroupbyPostId() {
+		return piRepository.findByGroupbyPostId();
 	}
 	
-	public List<Post_image> findAll(){
-		return piRespository.findAll();
+	public List<Post_image> findBypostId(int id){
+		return piRepository.findBypostId(id);
 	}
 }

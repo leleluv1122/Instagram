@@ -1,5 +1,7 @@
 package out.stagram.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
@@ -64,7 +66,7 @@ public class UserService {
 
 	public void save(UserRegistrationModel userModel) {
 		User user = createEntity(userModel);
-		userRepository.save(user);
+		save_u(user);
 	}
 	
 	public void img_update(String userId, String profile_photo) {
@@ -85,5 +87,9 @@ public class UserService {
 	
 	public void save_u(User user) {
 		userRepository.save(user);
+	}
+	
+	public List<User> findByUserIdContains(String word) {
+		return userRepository.findByUserIdContains(word);
 	}
 }

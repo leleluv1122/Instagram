@@ -12,6 +12,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!-- 개발버전, 도움되는 콘솔 경고를 포함. -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <link
@@ -25,28 +28,47 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,900&display=swap"
 	rel="stylesheet">
-<link rel="stylesheet" href="/res/main.css" type="text/css">
-<script src="/res/js/slidejquery.js"></script>
-<script src="/res/js/jquery.bxslider.min.js"></script>
-<link rel="stylesheet" href="/res/jquery.bxslider.min.css">
+<title>팔로우 추천 & 검색</title>
+<style>
+#footer {
+	position: fixed;
+	background-color: white; /*임의색상*/
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 6rem;
+}
+
+#contents {
+	bottom: 6rem;
+}
+
+.search {
+	width: 500px;
+	height: 90px;
+	margin-left: 100px;
+}
+</style>
 </head>
 <body>
-	<sec:authentication property="user.id" var="currentid" />
-	<a href="/main"><span class="glyphicon glyphicon-home"
-		style="color: #6fff59; font-size: 30px; margin-top: 13px; margin-left: 50px;"
-		aria-hidden="true"></span></a>
-	<a href="/main/recommend"><span class="glyphicon glyphicon-search"
-		style="color: #6193ff; font-size: 30px; margin-top: 13px; margin-left: 80px;"
-		aria-hidden="true"></span></a>
-	<a href="/main/upload"><span class="glyphicon glyphicon-plus-sign"
-		style="color: #c061ff; font-size: 30px; margin-top: 13px; margin-left: 80px;"
-		aria-hidden="true"></span></a>
-	<a href=""><span class="glyphicon glyphicon-heart"
-		style="color: #ff6161; font-size: 30px; margin-top: 13px; margin-left: 80px;"
-		aria-hidden="true"></span></a>
-	<a href="/main/user/${currentid}"><span
-		class="glyphicon glyphicon-user"
-		style="color: gray; font-size: 30px; margin-top: 13px; margin-left: 80px;"
-		aria-hidden="true"></span></a>
+	<div id="contents">
+		<div class="search">
+			<form action="/main/search" class="form-inline my-2 my-lg-0"
+				autocomplete="off">
+				<input class="form-control mr-sm-2" type="search" name="word"
+					placeholder="Search" aria-label="Search"
+					style="margin-top: 10px; width: 350px; float: left;">
+				<button class="btn btn-outline-success my-2 my-sm-0"
+					style="margin-top: 10px; margin-left: 5px;" type="submit">
+					<span class="glyphicon glyphicon-search"
+						style="margin-top: 7px; margin: 2px;"></span>
+				</button>
+			</form>
+		</div>
+	</div>
+
+	<div id="footer">
+		<%@ include file="../include/bottom.jsp"%>
+	</div>
 </body>
 </html>
