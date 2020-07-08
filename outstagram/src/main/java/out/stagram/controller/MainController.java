@@ -2,6 +2,7 @@ package out.stagram.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,9 +20,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import out.stagram.domain.Follow;
 import out.stagram.domain.Post;
 import out.stagram.domain.Post_image;
 import out.stagram.domain.User;
+import out.stagram.service.FollowService;
 import out.stagram.service.PostService;
 import out.stagram.service.Post_imageService;
 import out.stagram.service.UserService;
@@ -34,36 +37,71 @@ public class MainController {
 	PostService postService;
 	@Autowired
 	Post_imageService piService;
+	@Autowired
+	FollowService followService;
 
 	@RequestMapping("/main")
 	public String main_page(Model model) throws Exception {
 		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
 		User u = userService.findByUserId(userId);
-		model.addAttribute("user", u);
+		
+		 // login user가 following한 사람 리스트
+		List<Follow> follower_list = followService.findByFollowingId(u.getId());
+		
+		// login user의 포스팅 select
+		List<Post> posting = postService.findByUserIdOrderByIdDesc(u.getId());
+		
+		// following한 유저의 게시글 select 후 user 포스팅과 list 합치기
+		for(Follow f : follower_list) {
+			List<Post> post = postService.findByUserIdOrderByIdDesc(f.getFollower().getId());
+			for(Post p : post) {
+				posting.add(p);
+			}
+		}
+		
+		// 포스팅 날짜순으로 거꾸로 정렬하기
+		Post p = new Post();
+		Collections.sort(posting, p);
 
-		model.addAttribute("posting", postService.findByUserIdOrderByIdDesc(u.getId()));
+		model.addAttribute("user", u);
+		model.addAttribute("posting", posting);
 		model.addAttribute("img", piService.findAll());
+		
 		return "/main";
 	}
 
 	@RequestMapping("/main/user/{id}")
 	public String main_user(@PathVariable("id") int id, Model model) throws Exception {
+		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
 		model.addAttribute("page_id", id);
 		model.addAttribute("user", userService.findById(id));
 		model.addAttribute("post", postService.findByUserIdOrderByIdDesc(id));
 		model.addAttribute("post_image", piService.findByGroupbyPostId());
-
 		model.addAttribute("post_count", postService.countByUserId(id));
+		model.addAttribute("follow", followService.find(id, userId));
+		
+		model.addAttribute("follower", followService.countByFollowerId(id));
+		model.addAttribute("following", followService.countByFollowingId(id));
 
 		return "/main/user";
 	}
 
 	@RequestMapping(value = "/main/user/update/{id}", method = RequestMethod.GET)
 	public String update_user(@PathVariable("id") int id, Model model) throws Exception {
-		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
-
 		model.addAttribute("user", userService.findById(id));
 		return "/main/user/update";
+	}
+	
+	@RequestMapping("/main/user/follower/{id}")
+	public String follower(@PathVariable("id") int id, Model model) throws Exception{
+		
+		return "/main/user/follower";
+	}
+	
+	@RequestMapping("/main/user/following/{id}")
+	public String following(@PathVariable("id") int id, Model model) throws Exception{
+		
+		return "/main/user/following";
 	}
 
 	@RequestMapping(value = "/main/user/image_insert")

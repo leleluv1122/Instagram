@@ -27,7 +27,7 @@
 <script src="/res/js/slidejquery.js"></script>
 <script src="/res/js/jquery.bxslider.min.js"></script>
 <link rel="stylesheet" href="/res/jquery.bxslider.min.css">
-<title>Outstagram</title>
+<title>${p.description}</title>
 <script>
 	$(function() {
 		$('.slide_gallery').bxSlider({

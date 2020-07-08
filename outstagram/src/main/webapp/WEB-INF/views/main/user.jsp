@@ -32,16 +32,6 @@
 	margin-top: 20px;
 }
 
-/* .well {
-	padding: 0px;
-	background-color: #f8f9fa;
-	border-radius: 8px;
-	height: 160px;
-	width: 160px;
-	float: left;
-	margin: 25px;
-	cursor: pointer;
-} */
 .post_title {
 	float: left;
 	cursor: pointer;
@@ -77,17 +67,19 @@
 			</div>
 
 			<div class="txt">
-				<span style="margin-left: 20px;">0</span><br> <span
-					style="margin-left: 8px;">게시물</span>
+				<span style="margin-left: 20px; color: gray;">${post_count}</span><br>
+				<span style="margin-left: 8px;">게시물</span>
 			</div>
 
-			<div class="txt">
-				<span style="margin-left: 20px;">0</span><br> <span
+			<div class="txt" style="cursor: pointer;"
+				onclick="location.href='/main/user/follower/${page_id}'">
+				<span style="margin-left: 20px;">${follower}</span><br> <span
 					style="margin-left: 8px;">팔로워</span>
 			</div>
 
-			<div class="txt">
-				<span style="margin-left: 20px;">0</span><br> <span
+			<div class="txt" style="cursor: pointer;"
+				onclick="location.href='/main/user/following/${page_id}'">
+				<span style="margin-left: 20px;">${following}</span><br> <span
 					style="margin-left: 8px;">팔로잉</span>
 			</div>
 		</div>
@@ -109,7 +101,24 @@
 
 			<c:otherwise>
 				<div class="fix">
-					<!-- 팔로잉/언팔로잉 버튼 + 메시지 버튼 -->
+					<c:choose>
+						<c:when test="${follow == true}">
+							<form action="/unfollow" name="form" method="post">
+								<input type="hidden" value="${currentid}" name="user_id">
+								<input type="hidden" value="${page_id}" name="page_id">
+								<button class="btn btn-default" type="submit"
+									style="margin-left: 110px; width: 370px;">언팔로잉</button>
+							</form>
+						</c:when>
+						<c:otherwise>
+							<form action="/follow" name="form" method="post">
+								<input type="hidden" value="${currentid}" name="user_id">
+								<input type="hidden" value="${page_id}" name="page_id">
+								<button class="btn btn-default"
+									style="margin-left: 110px; width: 370px;">팔로잉</button>
+							</form>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</c:otherwise>
 		</c:choose>
