@@ -26,23 +26,7 @@
 <link rel="stylesheet" href="/res/user.css" type="text/css">
 <title>Outstagram</title>
 <style>
-.posting {
-	width: 500px;
-	margin-left: 60px;
-	margin-top: 20px;
-}
 
-.post_title {
-	float: left;
-	cursor: pointer;
-	height: 160px;
-	width: 160px;
-	overflow: hidden;
-	position: relative;
-	height: 160px;
-	width: 160px;
-	width: 160px;
-}
 </style>
 </head>
 <body>
@@ -124,6 +108,8 @@
 		</c:choose>
 
 
+		<sec:authentication property="user.id" var="currentid" />
+		<sec:authentication property="user.userId" var="currentuserId" />
 		<div class="posting">
 			<c:choose>
 				<c:when test="${post_count != 0}">
@@ -140,8 +126,23 @@
 				</c:when>
 				<c:otherwise>
 					<div class="empty" style="margin-top: 20px;">
-						<span>사진 공유</span> <br /> <span>사진과 동영상을 공유하면 프로필에 표시됩니다.</span>
-						<br /> <a href="/main/upload">첫 번째 사진을 공유해보세요</a>
+						<c:choose>
+							<c:when test="${currentid == page_id}">
+								<span>사진 공유</span>
+								<br />
+								<span>사진과 동영상을 공유하면 프로필에 표시됩니다.</span>
+								<br />
+								<a href="/main/upload">첫 번째 사진을 공유해보세요</a>
+							</c:when>
+							<c:otherwise>
+								<span
+									style="font-size: 15px; font-weight: bold; margin-left: 5px;">게시물
+									없음</span>
+								<br />
+								<br />
+								<span>${page_userId}님이 게시하는 사진과 동영상이 여기에 표시됩니다.</span>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</c:otherwise>
 			</c:choose>

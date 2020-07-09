@@ -26,7 +26,7 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,900&display=swap"
 	rel="stylesheet">
-<title>Outstagram</title>
+<title>포스팅</title>
 <style>
 .contents {
 	bottom: 6rem;

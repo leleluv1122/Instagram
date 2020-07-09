@@ -48,4 +48,8 @@ public class FollowService {
 	public List<Follow> findByFollowingId(int id) {
 		return followRepository.findByFollowingId(id);
 	}
+	
+	public List<Follow> findByFollowerId(int id){
+		return followRepository.findByFollowerId(id);
+	}
 }

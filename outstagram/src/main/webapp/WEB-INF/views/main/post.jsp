@@ -52,6 +52,16 @@
 #contents {
 	bottom: 6rem;
 }
+
+.heart {
+	margin-left: 45px;
+	background-color: white;
+	border: 0;
+	outline: 0;
+	font-size: 18px;
+	float: left;
+	color: red;
+}
 </style>
 </head>
 <body>
@@ -79,10 +89,27 @@
 					</c:forEach>
 				</ul>
 			</div>
+			<sec:authentication property="user.id" var="currentid" />
 			<div class="bar">
-				<span class="glyphicon glyphicon-heart-empty" aria-hidden="true"
-					style="margin-left: 45px; font-size: 18px; color: red;"></span> <span
-					class="glyphicon glyphicon-comment" aria-hidden="true"
+				<c:choose>
+					<c:when test="${hcnt == 0}">
+						<form action="/heart" name="form" method="post">
+							<input type="hidden" name="postid" value="${p.id}"> <input
+								type="hidden" name="userid" value="${currentid}">
+							<button class="glyphicon glyphicon-heart-empty heart"
+								aria-hidden="true"></button>
+						</form>
+					</c:when>
+					<c:otherwise>
+						<form action="/noheart" name="form" method="post">
+							<input type="hidden" name="postid" value="${p.id}"> <input
+								type="hidden" name="userid" value="${currentid}">
+							<button class="glyphicon glyphicon-heart heart"
+								aria-hidden="true"></button>
+						</form>
+					</c:otherwise>
+				</c:choose>
+				<span class="glyphicon glyphicon-comment" aria-hidden="true"
 					style="margin-left: 15px; font-size: 18px; color: purple"></span>
 			</div>
 			<div class="write">

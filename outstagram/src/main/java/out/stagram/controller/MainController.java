@@ -2,6 +2,7 @@ package out.stagram.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
@@ -21,10 +22,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import out.stagram.domain.Follow;
+import out.stagram.domain.PoCo;
 import out.stagram.domain.Post;
 import out.stagram.domain.Post_image;
 import out.stagram.domain.User;
 import out.stagram.service.FollowService;
+import out.stagram.service.HeartService;
 import out.stagram.service.PostService;
 import out.stagram.service.Post_imageService;
 import out.stagram.service.UserService;
@@ -39,6 +42,8 @@ public class MainController {
 	Post_imageService piService;
 	@Autowired
 	FollowService followService;
+	@Autowired
+	HeartService heartService;
 
 	@RequestMapping("/main")
 	public String main_page(Model model) throws Exception {
@@ -59,6 +64,17 @@ public class MainController {
 			}
 		}
 		
+		List<PoCo> poco = new ArrayList<>();
+		for(Post po : posting) {
+			PoCo p = new PoCo();
+			p.setPostid(po.getId());
+			p.setCnt(heartService.countByPostIdAndUserId(po.getId(), u.getId()));
+			
+			poco.add(p);
+		}
+		
+		model.addAttribute("poco", poco);
+		
 		// 포스팅 날짜순으로 거꾸로 정렬하기
 		Post p = new Post();
 		Collections.sort(posting, p);
@@ -73,8 +89,11 @@ public class MainController {
 	@RequestMapping("/main/user/{id}")
 	public String main_user(@PathVariable("id") int id, Model model) throws Exception {
 		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = userService.findById(id);
+		
 		model.addAttribute("page_id", id);
-		model.addAttribute("user", userService.findById(id));
+		model.addAttribute("page_userId", user.getUserId());
+		model.addAttribute("user", user);
 		model.addAttribute("post", postService.findByUserIdOrderByIdDesc(id));
 		model.addAttribute("post_image", piService.findByGroupbyPostId());
 		model.addAttribute("post_count", postService.countByUserId(id));
@@ -94,15 +113,17 @@ public class MainController {
 	
 	@RequestMapping("/main/user/follower/{id}")
 	public String follower(@PathVariable("id") int id, Model model) throws Exception{
+		model.addAttribute("follower", followService.findByFollowerId(id));
 		
 		return "/main/user/follower";
 	}
 	
 	@RequestMapping("/main/user/following/{id}")
 	public String following(@PathVariable("id") int id, Model model) throws Exception{
+		model.addAttribute("following", followService.findByFollowingId(id));
 		
 		return "/main/user/following";
-	}
+	} 
 
 	@RequestMapping(value = "/main/user/image_insert")
 	public String image_insert(HttpServletRequest request, @RequestParam("filename") MultipartFile mFile, Model model)
@@ -206,8 +227,13 @@ public class MainController {
 
 	@RequestMapping(value = "main/post/{id}")
 	public String post(@PathVariable("id") int id, Model model) throws Exception {
+		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = userService.findByUserId(userId);
 		model.addAttribute("p", postService.findById(id));
 		model.addAttribute("img", piService.findBypostId(id));
+		
+		// 하트눌럿는지 안눌럿는지..
+		model.addAttribute("hcnt", heartService.countByPostIdAndUserId(id, user.getId()));
 		
 		return "main/post";
 	}

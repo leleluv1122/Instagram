@@ -82,14 +82,20 @@
 			</form>
 		</div>
 
-
 		<div class="find_user">
 			<c:forEach var="u" items="${find_user}">
 				<div class="f">
 					<div class="title_image">
-						<a href="/main/user/${u.id}"> <img
-							src="/images/profile/${u.profile_photo}" class="tiny_image"
-							align="left">
+						<a href="/main/user/${u.id}"> <c:choose>
+								<c:when test="${u.profile_photo != null}">
+									<img src="/images/profile/${u.profile_photo}"
+										class="tiny_image" align="left">
+								</c:when>
+								<c:otherwise>
+									<img src="/images/noimage.png" class="tiny_image" align="left">
+								</c:otherwise>
+							</c:choose>
+
 						</a>
 					</div>
 					<div class="userid_txt">

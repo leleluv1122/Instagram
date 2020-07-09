@@ -39,11 +39,58 @@
 #contents {
 	bottom: 6rem;
 }
+
+.find_user {
+	width: 500px;
+	margin-left: 100px;
+}
+
+.f {
+	width: 500px;
+	height: 100px;
+}
+
+.tiny_image {
+	width: 80px;
+	height: 80px;
+	border-radius: 7px;
+}
+
+.nava {
+	width: 500px;
+	height: 50px;
+	margin-left: 70px;
+	margin-top: 20px;
+}
 </style>
 </head>
 <body>
 	<div id="contents">
-		
+		<div class="nava">
+			<span style="font-size: 20px;">팔로잉 목록</span>
+		</div>
+		<div class="find_user">
+			<c:forEach var="f" items="${following}">
+				<div class="f">
+					<div class="title_image">
+						<a href="/main/user/${f.follower.id}"> <c:choose>
+								<c:when test="${f.follower.profile_photo == null}">
+									<img src="/images/noimage.png" class="tiny_image" align="left">
+								</c:when>
+								<c:otherwise>
+									<img src="/images/profile/${f.follower.profile_photo}"
+										class="tiny_image" align="left">
+								</c:otherwise>
+							</c:choose>
+						</a>
+					</div>
+					<div class="userid_txt">
+						<a href="/main/user/${f.follower.id}"
+							style="font-size: 18px; color: black; margin-left: 9px;">${f.follower.userId}</a>
+					</div>
+				</div>
+			</c:forEach>
+		</div>
 	</div>
 
 	<div id="footer">

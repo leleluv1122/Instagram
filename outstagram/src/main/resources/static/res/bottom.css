@@ -1,0 +1,12 @@
+#footer {
+	position: fixed;
+	background-color: white; /*임의색상*/
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 6rem;
+}
+
+#contents {
+	bottom: 6rem;
+}

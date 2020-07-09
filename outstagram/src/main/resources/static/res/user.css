@@ -52,6 +52,24 @@ body {
 	width: 500px;
 }
 
+.posting {
+	width: 500px;
+	margin-left: 60px;
+	margin-top: 20px;
+}
+
+.post_title {
+	float: left;
+	cursor: pointer;
+	height: 160px;
+	width: 160px;
+	overflow: hidden;
+	position: relative;
+	height: 160px;
+	width: 160px;
+	width: 160px;
+}
+
 #footer {
 	position: fixed;
 	background-color: white; /*임의색상*/
