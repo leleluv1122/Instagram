@@ -83,27 +83,35 @@
 		</div>
 
 		<div class="find_user">
-			<c:forEach var="u" items="${find_user}">
-				<div class="f">
-					<div class="title_image">
-						<a href="/main/user/${u.id}"> <c:choose>
-								<c:when test="${u.profile_photo != null}">
-									<img src="/images/profile/${u.profile_photo}"
-										class="tiny_image" align="left">
-								</c:when>
-								<c:otherwise>
-									<img src="/images/noimage.png" class="tiny_image" align="left">
-								</c:otherwise>
-							</c:choose>
+			<c:choose>
+				<c:when test="${ucnt == 0}">
+					<span style="font-size: 25px;">일치하는 유저가 없습니다</span>
+				</c:when>
+				<c:otherwise>
+					<c:forEach var="u" items="${find_user}">
+						<div class="f">
+							<div class="title_image">
+								<a href="/main/user/${u.id}"> <c:choose>
+										<c:when test="${u.profile_photo != null}">
+											<img src="/images/profile/${u.profile_photo}"
+												class="tiny_image" align="left">
+										</c:when>
+										<c:otherwise>
+											<img src="/images/noimage.png" class="tiny_image"
+												align="left">
+										</c:otherwise>
+									</c:choose>
 
-						</a>
-					</div>
-					<div class="userid_txt">
-						<a href="/main/user/${u.id}"
-							style="font-size: 18px; color: black; margin-left: 9px;">${u.userId}</a>
-					</div>
-				</div>
-			</c:forEach>
+								</a>
+							</div>
+							<div class="userid_txt">
+								<a href="/main/user/${u.id}"
+									style="font-size: 18px; color: black; margin-left: 9px;">${u.userId}</a>
+							</div>
+						</div>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
 		</div>
 	</div>
 

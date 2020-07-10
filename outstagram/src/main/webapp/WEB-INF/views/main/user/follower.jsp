@@ -47,12 +47,12 @@
 
 .f {
 	width: 500px;
-	height: 100px;
+	height: 70px;
 }
 
 .tiny_image {
-	width: 80px;
-	height: 80px;
+	width: 70px;
+	height: 70px;
 	border-radius: 7px;
 }
 
@@ -61,6 +61,14 @@
 	height: 50px;
 	margin-left: 70px;
 	margin-top: 20px;
+}
+
+.title_image {
+	cursor: pointer;
+}
+
+.userid_txt {
+	cursor: pointer;
 }
 </style>
 </head>
@@ -73,7 +81,8 @@
 		<div class="find_user">
 			<c:forEach var="f" items="${follower}">
 				<div class="f">
-					<div class="title_image">
+					<div class="title_image"
+						onclick="location.href='/main/user/${f.following.id}'">
 						<a href="/main/user/${f.following.id}"> <c:choose>
 								<c:when test="${f.following.profile_photo == null}">
 									<img src="/images/noimage.png" class="tiny_image" align="left">
@@ -86,9 +95,9 @@
 
 						</a>
 					</div>
-					<div class="userid_txt">
-						<a href="/main/user/${f.following.id}"
-							style="font-size: 18px; color: black; margin-left: 9px;">${f.following.userId}</a>
+					<div class="userid_txt"
+						onclick="location.href='/main/user/${f.following.id}'">
+						<span style="font-size: 18px; margin-left: 9px;">${f.following.userId}</span><br />
 					</div>
 				</div>
 			</c:forEach>

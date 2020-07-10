@@ -41,7 +41,7 @@
 	<a href="/main/upload"><span class="glyphicon glyphicon-plus-sign"
 		style="color: #c061ff; font-size: 30px; margin-top: 13px; margin-left: 80px;"
 		aria-hidden="true"></span></a>
-	<a href=""><span class="glyphicon glyphicon-heart"
+	<a href="/main/heart"><span class="glyphicon glyphicon-heart"
 		style="color: #ff6161; font-size: 30px; margin-top: 13px; margin-left: 80px;"
 		aria-hidden="true"></span></a>
 	<a href="/main/user/${currentid}"><span

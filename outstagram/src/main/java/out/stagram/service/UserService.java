@@ -92,4 +92,8 @@ public class UserService {
 	public List<User> findByUserIdContains(String word) {
 		return userRepository.findByUserIdContains(word);
 	}
+	
+	public int countByUserIdContains(String word) {
+		return userRepository.countByUserIdContains(word);
+	}
 }

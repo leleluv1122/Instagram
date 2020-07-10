@@ -45,8 +45,33 @@
 
 .search {
 	width: 500px;
-	height: 90px;
+	height: 70px;
 	margin-left: 100px;
+}
+
+.recommend {
+	width: 500px;
+	margin-left: 60px;
+	margin-top: 20px;
+}
+
+.post_title {
+	float: left;
+	cursor: pointer;
+	height: 160px;
+	width: 160px;
+	overflow: hidden;
+	position: relative;
+	height: 160px;
+	width: 160px;
+	width: 160px;
+}
+
+.nava {
+	width: 500px;
+	height: 30px;
+	margin-left: 70px;
+	margin-top: 20px;
 }
 </style>
 </head>
@@ -64,6 +89,21 @@
 						style="margin-top: 7px; margin: 2px;"></span>
 				</button>
 			</form>
+		</div>
+		<div class="nava">
+			<span style="font-size: 18px;">최근 게시물</span>
+		</div>
+		<div class="recommend">
+			<c:forEach var="p" items="${post9}">
+				<c:forEach var="pi" items="${post_image}">
+					<c:if test="${p.id == pi.postId}">
+						<div onclick="location.href='/main/post/${p.id}'">
+							<img src="/images/${p.user.userId}/${pi.filename}"
+								class="post_title">
+						</div>
+					</c:if>
+				</c:forEach>
+			</c:forEach>
 		</div>
 	</div>
 

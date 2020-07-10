@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import out.stagram.domain.Follow;
+import out.stagram.domain.Heart;
 import out.stagram.domain.PoCo;
 import out.stagram.domain.Post;
 import out.stagram.domain.Post_image;
@@ -49,32 +50,32 @@ public class MainController {
 	public String main_page(Model model) throws Exception {
 		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
 		User u = userService.findByUserId(userId);
-		
-		 // login user가 following한 사람 리스트
+
+		// login user가 following한 사람 리스트
 		List<Follow> follower_list = followService.findByFollowingId(u.getId());
-		
+
 		// login user의 포스팅 select
 		List<Post> posting = postService.findByUserIdOrderByIdDesc(u.getId());
-		
+
 		// following한 유저의 게시글 select 후 user 포스팅과 list 합치기
-		for(Follow f : follower_list) {
+		for (Follow f : follower_list) {
 			List<Post> post = postService.findByUserIdOrderByIdDesc(f.getFollower().getId());
-			for(Post p : post) {
+			for (Post p : post) {
 				posting.add(p);
 			}
 		}
-		
+
 		List<PoCo> poco = new ArrayList<>();
-		for(Post po : posting) {
+		for (Post po : posting) {
 			PoCo p = new PoCo();
 			p.setPostid(po.getId());
 			p.setCnt(heartService.countByPostIdAndUserId(po.getId(), u.getId()));
-			
+
 			poco.add(p);
 		}
-		
+
 		model.addAttribute("poco", poco);
-		
+
 		// 포스팅 날짜순으로 거꾸로 정렬하기
 		Post p = new Post();
 		Collections.sort(posting, p);
@@ -82,7 +83,7 @@ public class MainController {
 		model.addAttribute("user", u);
 		model.addAttribute("posting", posting);
 		model.addAttribute("img", piService.findAll());
-		
+
 		return "/main";
 	}
 
@@ -90,7 +91,7 @@ public class MainController {
 	public String main_user(@PathVariable("id") int id, Model model) throws Exception {
 		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = userService.findById(id);
-		
+
 		model.addAttribute("page_id", id);
 		model.addAttribute("page_userId", user.getUserId());
 		model.addAttribute("user", user);
@@ -98,7 +99,7 @@ public class MainController {
 		model.addAttribute("post_image", piService.findByGroupbyPostId());
 		model.addAttribute("post_count", postService.countByUserId(id));
 		model.addAttribute("follow", followService.find(id, userId));
-		
+
 		model.addAttribute("follower", followService.countByFollowerId(id));
 		model.addAttribute("following", followService.countByFollowingId(id));
 
@@ -110,20 +111,20 @@ public class MainController {
 		model.addAttribute("user", userService.findById(id));
 		return "/main/user/update";
 	}
-	
+
 	@RequestMapping("/main/user/follower/{id}")
-	public String follower(@PathVariable("id") int id, Model model) throws Exception{
+	public String follower(@PathVariable("id") int id, Model model) throws Exception {
 		model.addAttribute("follower", followService.findByFollowerId(id));
-		
+
 		return "/main/user/follower";
 	}
-	
+
 	@RequestMapping("/main/user/following/{id}")
-	public String following(@PathVariable("id") int id, Model model) throws Exception{
+	public String following(@PathVariable("id") int id, Model model) throws Exception {
 		model.addAttribute("following", followService.findByFollowingId(id));
-		
+
 		return "/main/user/following";
-	} 
+	}
 
 	@RequestMapping(value = "/main/user/image_insert")
 	public String image_insert(HttpServletRequest request, @RequestParam("filename") MultipartFile mFile, Model model)
@@ -210,6 +211,8 @@ public class MainController {
 
 	@RequestMapping("/main/recommend")
 	public String recommend(Model model) throws Exception {
+		model.addAttribute("post9", postService.findByPostlimit9());
+		model.addAttribute("post_image", piService.findByGroupbyPostId());
 
 		return "/main/recommend";
 	}
@@ -219,7 +222,9 @@ public class MainController {
 		if (word == "") {
 			return "redirect:/main/recommend";
 		}
+		
 		model.addAttribute("find_user", userService.findByUserIdContains(word));
+		model.addAttribute("ucnt", userService.countByUserIdContains(word));
 		model.addAttribute("word", word);
 
 		return "main/search";
@@ -231,11 +236,35 @@ public class MainController {
 		User user = userService.findByUserId(userId);
 		model.addAttribute("p", postService.findById(id));
 		model.addAttribute("img", piService.findBypostId(id));
-		
+
 		// 하트눌럿는지 안눌럿는지..
 		model.addAttribute("hcnt", heartService.countByPostIdAndUserId(id, user.getId()));
-		
+
 		return "main/post";
+	}
+
+	@RequestMapping("main/heart")
+	public String heart(Model model) throws Exception {
+		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+		// User user = userService.findByUserId(userId);
+		List<Post> Lpost = postService.findByUserUserId(userId);
+
+		List<Heart> Lheart = new ArrayList<>();
+
+		for (Post p : Lpost) {
+			List<Heart> lh = heartService.findByPostId(p.getId());
+			for (Heart hh : lh) {
+				Lheart.add(hh);
+			}
+		}
+
+		Heart he = new Heart();
+		Collections.sort(Lheart, he);
+
+		model.addAttribute("hearts", Lheart);
+		model.addAttribute("post_image", piService.findByGroupbyPostId());
+
+		return "main/heart";
 	}
 
 	private String rnd(String originalName, byte[] fileData, String path) throws Exception {

@@ -43,4 +43,12 @@ public class PostService {
 	public int countByUserId(int id) {
 		return postRepository.countByUserId(id);
 	}
+	
+	public List<Post> findByUserUserId(String userId){
+		return postRepository.findByUserUserId(userId);
+	}
+	
+	public List<Post> findByPostlimit9(){
+		return postRepository.findByPostlimit9();
+	}
 }

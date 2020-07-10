@@ -47,7 +47,7 @@
 
 .f {
 	width: 500px;
-	height: 100px;
+	height: 70px;
 }
 
 .tiny_image {
