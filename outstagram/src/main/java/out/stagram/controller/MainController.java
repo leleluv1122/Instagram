@@ -73,8 +73,17 @@ public class MainController {
 
 			poco.add(p);
 		}
-
 		model.addAttribute("poco", poco);
+
+		List<PoCo> likecnt = new ArrayList<>();
+		for (Post po : posting) {
+			PoCo p = new PoCo();
+			p.setPostid(po.getId());
+			p.setCnt(heartService.countByPostId(po.getId()));
+
+			likecnt.add(p);
+		}
+		model.addAttribute("like_cnt", likecnt);
 
 		// 포스팅 날짜순으로 거꾸로 정렬하기
 		Post p = new Post();
@@ -222,7 +231,7 @@ public class MainController {
 		if (word == "") {
 			return "redirect:/main/recommend";
 		}
-		
+
 		model.addAttribute("find_user", userService.findByUserIdContains(word));
 		model.addAttribute("ucnt", userService.countByUserIdContains(word));
 		model.addAttribute("word", word);
@@ -236,6 +245,7 @@ public class MainController {
 		User user = userService.findByUserId(userId);
 		model.addAttribute("p", postService.findById(id));
 		model.addAttribute("img", piService.findBypostId(id));
+		model.addAttribute("heart_cnt", heartService.countByPostId(id)); // 게시글 하트개수
 
 		// 하트눌럿는지 안눌럿는지..
 		model.addAttribute("hcnt", heartService.countByPostIdAndUserId(id, user.getId()));

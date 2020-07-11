@@ -38,4 +38,8 @@ public class HeartService {
 	public List<Heart> findByPostId(int id){
 		return heartRepository.findByPostId(id);
 	}
+	
+	public int countByPostId(int id) {
+		return heartRepository.countByPostId(id);
+	}
 }

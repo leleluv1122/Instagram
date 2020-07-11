@@ -16,4 +16,5 @@ public interface HeartRepository extends JpaRepository<Heart, Integer> {
 	void deleteByPostIdAndUserId(int pid, int uid);
 	
 	List<Heart> findByPostId(int id);
+	int countByPostId(int id);
 }

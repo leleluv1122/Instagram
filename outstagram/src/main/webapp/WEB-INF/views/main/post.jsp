@@ -62,6 +62,15 @@
 	float: left;
 	color: red;
 }
+
+.like {
+	margin-top: 10px;
+	margin-left: 50px;
+}
+
+.write {
+	margin-top: 5px;
+}
 </style>
 </head>
 <body>
@@ -110,8 +119,12 @@
 					</c:otherwise>
 				</c:choose>
 				<span class="glyphicon glyphicon-comment" aria-hidden="true"
-					style="margin-left: 15px; font-size: 18px; color: purple"></span>
+					style="margin-left: 15px; font-size: 18px; color: purple"></span> <br />
+				<div class="like">
+					<span style="margin-top: 3px;"><b>좋아요 ${heart_cnt}개</b></span>
+				</div>
 			</div>
+
 			<div class="write">
 				<span>${p.description}</span>
 			</div>

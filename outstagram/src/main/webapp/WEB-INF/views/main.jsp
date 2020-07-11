@@ -53,6 +53,15 @@
 	float: left;
 	color: red;
 }
+
+.like {
+	margin-top: 10px;
+	margin-left: 50px;
+}
+
+.write {
+	margin-top: 5px;
+}
 </style>
 <script>
 	$(function() {
@@ -125,7 +134,20 @@
 							</c:if>
 						</c:forEach>
 						<span class="glyphicon glyphicon-comment" aria-hidden="true"
-							style="margin-left: 15px; font-size: 18px; color: purple"></span>
+							style="margin-left: 15px; font-size: 18px; color: purple"></span><br />
+						<div class="like">
+							<c:forEach var="lc" items="${like_cnt}">
+								<c:if test="${lc.postid == p.id}">
+									<c:choose>
+										<c:when test="${lc.cnt==0}">
+										</c:when>
+										<c:otherwise>
+											<span style="margin-top: 3px;"><b>좋아요 ${lc.cnt}개</b></span>
+										</c:otherwise>
+									</c:choose>
+								</c:if>
+							</c:forEach>
+						</div>
 					</div>
 					<div class="write" onclick="location.href='/main/post/${p.id}'"
 						style="cursor: pointer;">
