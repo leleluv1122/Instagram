@@ -26,11 +26,10 @@
 <link rel="stylesheet" href="/res/user.css" type="text/css">
 <title>Outstagram</title>
 <style>
-
 </style>
 </head>
 <body>
-	<div class="contents">
+	<div id="contents">
 		<div class="nav">
 			<span class="title"> <a href="/main/user/${user.id}"
 				class="title_ft" style="margin-right: 80px;">${user.userId}</a></span>
@@ -91,7 +90,7 @@
 								<input type="hidden" value="${currentid}" name="user_id">
 								<input type="hidden" value="${page_id}" name="page_id">
 								<button class="btn btn-default" type="submit"
-									style="margin-left: 110px; width: 370px;">언팔로잉</button>
+									style="margin-left: 110px; width: 180px; float: left;">언팔로잉</button>
 							</form>
 						</c:when>
 						<c:otherwise>
@@ -99,10 +98,12 @@
 								<input type="hidden" value="${currentid}" name="user_id">
 								<input type="hidden" value="${page_id}" name="page_id">
 								<button class="btn btn-default"
-									style="margin-left: 110px; width: 370px;">팔로잉</button>
+									style="margin-left: 110px; width: 180px; float: left;">팔로잉</button>
 							</form>
 						</c:otherwise>
 					</c:choose>
+					<a href="/main/user/message/${page_id}" class="btn btn-default"
+						style="margin-left: 20px; width: 180px;">메시지</a>
 				</div>
 			</c:otherwise>
 		</c:choose>
