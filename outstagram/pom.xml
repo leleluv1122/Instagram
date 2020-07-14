@@ -124,7 +124,13 @@
 			<artifactId>hibernate-validator</artifactId>
 			<version>5.3.5.Final</version>
 		</dependency>
-
+		
+		<!-- XML -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+		</dependency>
+		
 		<!-- Web socket -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

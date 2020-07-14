@@ -8,10 +8,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <link
 	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	rel="stylesheet" media="screen">
@@ -71,10 +71,21 @@
 .write {
 	margin-top: 5px;
 }
+
+.commentList {
+	weight: 500px;
+	height: auto;
+}
+
+.comment {
+	weight: 500px;
+	height: 500px;
+}
 </style>
 </head>
 <body>
-	<div class="contents">
+	<sec:authentication property="user.id" var="currentid" />
+	<div id="contents">
 		<div class="r" style="margin-top: 20px;">
 			<div style="margin-left: 20px;">
 				<div class="title_image">
@@ -98,7 +109,6 @@
 					</c:forEach>
 				</ul>
 			</div>
-			<sec:authentication property="user.id" var="currentid" />
 			<div class="bar">
 				<c:choose>
 					<c:when test="${hcnt == 0}">
@@ -129,10 +139,30 @@
 				<span>${p.description}</span>
 			</div>
 		</div>
-	</div>
+		<div class="comment">
+			<div class="container">
+				<label for="content">comment</label>
+				<form name="commentInsertForm">
+					<div class="input-group">
+						<input type="hidden" name="pid" id="pid" value="${p.id}" /> <input
+							type="text" class="form-control" id="content" name="content"
+							placeholder="내용을 입력하세요."> <input type="hidden" name="uid"
+							value="${currentid}" /><span class="input-group-btn">
+							<button class="btn btn-default" type="button"
+								name="commentInsertBtn">등록</button>
+						</span>
+					</div>
+				</form>
 
+			</div>
+			<div class="container">
+				<div class="commentList"></div>
+			</div>
+		</div>
+	</div>
 	<div id="footer">
 		<%@ include file="../include/bottom.jsp"%>
 	</div>
+	<%@ include file="comment.jsp"%>
 </body>
 </html>

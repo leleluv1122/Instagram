@@ -64,7 +64,9 @@ input.form-control.w200 {
 				<div class="hmhm">
 					<c:choose>
 						<c:when test="${c.send.id == currentid}">
-							<span style="float: right;">${c.content}</span>
+							<div class="sasa">
+								<span style="float: right;">${c.content}</span>
+							</div>
 						</c:when>
 						<c:when test="${c.receive.id == currentid}">
 							<span style="float: left; margin-left: 50px;">${c.content}</span>
