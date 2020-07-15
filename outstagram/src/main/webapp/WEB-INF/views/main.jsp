@@ -134,7 +134,8 @@
 							</c:if>
 						</c:forEach>
 						<span class="glyphicon glyphicon-comment" aria-hidden="true"
-							style="margin-left: 15px; font-size: 18px; color: purple"></span><br />
+							onclick="location.href='/main/post/${p.id}'"
+							style="margin-left: 15px; font-size: 18px; color: purple; cursor: pointer;"></span><br />
 						<div class="like">
 							<c:forEach var="lc" items="${like_cnt}">
 								<c:if test="${lc.postid == p.id}">

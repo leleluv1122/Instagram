@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -31,5 +32,12 @@ public class CommentController {
 	private List<Comment> comment_list(Model model, int id) throws Exception {
 		
 		return commentService.findByPostId(id);
+	}
+	
+	@RequestMapping("/delete/{id}")
+	@ResponseBody
+	private int comment_delete(@PathVariable int id) throws Exception {
+		
+		return commentService.deleteById(id);
 	}
 }
