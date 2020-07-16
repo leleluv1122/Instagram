@@ -15,4 +15,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
 	List<User> findByUserIdContains(String word);
 	int countByUserIdContains(String word);
+	
+	int countByUserIdAndPhone(String userid, String phone);
 }

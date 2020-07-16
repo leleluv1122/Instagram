@@ -27,6 +27,7 @@ import out.stagram.domain.PoCo;
 import out.stagram.domain.Post;
 import out.stagram.domain.Post_image;
 import out.stagram.domain.User;
+import out.stagram.service.CommentService;
 import out.stagram.service.FollowService;
 import out.stagram.service.HeartService;
 import out.stagram.service.PostService;
@@ -45,6 +46,8 @@ public class MainController {
 	FollowService followService;
 	@Autowired
 	HeartService heartService;
+	@Autowired
+	CommentService commentService;
 
 	@RequestMapping("/main")
 	public String main_page(Model model) throws Exception {
@@ -84,6 +87,16 @@ public class MainController {
 			likecnt.add(p);
 		}
 		model.addAttribute("like_cnt", likecnt);
+
+		List<PoCo> cmtcnt = new ArrayList<>();
+		for (Post po : posting) {
+			PoCo p = new PoCo();
+			p.setPostid(po.getId());
+			p.setCnt(commentService.countByPostId(po.getId()));
+			
+			cmtcnt.add(p);
+		}
+		model.addAttribute("cmt_cnt", cmtcnt);
 
 		// 포스팅 날짜순으로 거꾸로 정렬하기
 		Post p = new Post();

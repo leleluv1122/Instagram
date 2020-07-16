@@ -11,6 +11,8 @@ import out.stagram.domain.Comment;
 public interface CommentRepository extends JpaRepository<Comment, Integer> {
 	List<Comment> findByPostId(int pid);
 	
+	int countByPostId(int id);
+	
 	@Modifying
 	@Transactional
 	void deleteById(int id);

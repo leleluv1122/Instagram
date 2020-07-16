@@ -72,20 +72,6 @@
 			<span style="font-size: 18px;">좋아요 알림</span>
 		</div>
 
-		<!-- 현재시간 -->
-		<c:set var="now" value="<%=new java.util.Date()%>" />
-		<c:set var="sysYear">
-			<fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:mm:ss" />
-		</c:set>
-		<c:set var="syshour">
-			<fmt:formatDate value="${now}" pattern="HH" />
-		</c:set>
-		<fmt:parseDate value="${sysYear}" var="sysday"
-			pattern="yyyy-MM-dd HH:mm:ss" />
-		<fmt:parseNumber value="${sysday.time / (1000*60*60*24)}"
-			integerOnly="true" var="strDate"></fmt:parseNumber>
-
-
 		<c:forEach var="h" items="${hearts}">
 			<div class="like">
 				<div class="img">
@@ -100,37 +86,31 @@
 				<a href="/main/user/${h.user.id}">${h.user.userId}</a> <span>님이
 					회원님의 게시물을 좋아합니다.</span> <br />
 
-
-				<c:set var="clickhour">
-					<fmt:formatDate value="${h.clicktime}" pattern="HH" />
-				</c:set>
-
-				<fmt:parseDate value="${h.clicktime}" var="endPlanDate"
-					pattern="yyyy-MM-dd HH:mm:ss" />
-				<fmt:parseNumber value="${endPlanDate.time / (1000*60*60*24)}"
-					integerOnly="true" var="endDate"></fmt:parseNumber>
-
-				<c:choose>
-					<c:when test="${strDate - endDate == 0}">
-						<!-- 몇시간전 -->
-						<c:choose>
-							<c:when test="${syshour - clickhour < 0}">
-								${syshour+24 - clickhour} 시간전
-							</c:when>
-							<c:otherwise>
-								${syshour - clickhour} 시간전
-							</c:otherwise>
-						</c:choose>
-					</c:when>
-					<c:otherwise>
-						<!-- 1일전 이상 -->
-						<span>${strDate - endDate} 일전</span>
-					</c:otherwise>
-				</c:choose>
-
-				<%-- <span> <fmt:formatDate value="${h.clicktime}"
-						pattern="yyyy-MM-dd HH:mm:ss" />
-				</span> --%>
+				<c:set var="clicktime" value="${h.clicktime}" />
+				<div class="time_${h.id}"></div>
+				<script>
+					var a = '';
+					var cur = new Date();
+					var c_time = cur.getTime();
+					
+					var ct = '${clicktime}';
+					var cd = new Date(ct.valueOf());
+					
+					var chai = c_time - cd.getTime();
+					
+					if(chai < 1000 * 60)
+	                	a += Math.floor(chai / 1000) + ' 초전';
+	                else if(chai < 1000 * 60 * 60)
+	                	a += Math.floor(chai / (1000 * 60)) + ' 분전';
+	                else if(chai < 1000 * 60 * 60 * 24)
+	                	a += Math.floor(chai / (1000 * 60 * 60)) + ' 시간전';
+	                else if(chai < 1000 * 60 * 60 * 24 * 30)
+	                	a += Math.floor(chai / (1000 * 60 * 60 * 24)) + ' 일전';
+	                else if(chai < 1000 * 60 * 60 * 24 * 30 * 12)
+	                	a += Math.floor(chai / (1000 * 60 * 60 * 24 * 30)) + ' 달전';
+					
+					$(".time_" + '${h.id}').html(a);
+				</script>
 				<hr />
 			</div>
 		</c:forEach>

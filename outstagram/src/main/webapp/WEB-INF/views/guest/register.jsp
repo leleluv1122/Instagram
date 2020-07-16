@@ -94,6 +94,5 @@ input.form-control.w300 {
 			</div>
 		</sec:authorize>
 	</div>
-	<%@ include file="../include/bottom.jsp"%>
 </body>
 </html>

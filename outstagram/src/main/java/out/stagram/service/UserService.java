@@ -15,7 +15,7 @@ import out.stagram.utils.EncryptionUtils;
 public class UserService {
 	@Autowired
 	UserRepository userRepository;
-	
+
 	public User login(String userId, String password) {
 		User user = userRepository.findOneByUserId(userId);
 		if (user == null)
@@ -26,15 +26,15 @@ public class UserService {
 			return null;
 		return user;
 	}
-	
+
 	public User findByUserId(String userId) {
 		return userRepository.findByUserId(userId);
 	}
-	
+
 	public User findById(int id) {
 		return userRepository.findById(id);
 	}
-	
+
 	public boolean hasErrors(UserRegistrationModel userModel, BindingResult bindingResult) {
 		if (bindingResult.hasErrors())
 			return true;
@@ -50,7 +50,7 @@ public class UserService {
 		}
 		return false;
 	}
-	
+
 	public User createEntity(UserRegistrationModel userModel) {
 		User user = new User();
 		String pw = EncryptionUtils.encryptMD5(userModel.getPasswd1());
@@ -60,7 +60,7 @@ public class UserService {
 		user.setPhone(userModel.getPhone());
 		user.setEnable(1);
 		user.setUserType("user");
-		
+
 		return user;
 	}
 
@@ -68,32 +68,38 @@ public class UserService {
 		User user = createEntity(userModel);
 		save_u(user);
 	}
-	
+
 	public void img_update(String userId, String profile_photo) {
 		User user = findByUserId(userId);
 		user.setProfile_photo(profile_photo);
-		
+
 		save_u(user);
 	}
-	
+
 	public void profile_update(String userId, String name, String website, String introduce) {
 		User user = findByUserId(userId);
 		user.setName(name);
 		user.setWebsite(website);
 		user.setIntroduce(introduce);
-		
+
 		save_u(user);
 	}
-	
+
 	public void save_u(User user) {
 		userRepository.save(user);
 	}
-	
+
 	public List<User> findByUserIdContains(String word) {
 		return userRepository.findByUserIdContains(word);
 	}
-	
+
 	public int countByUserIdContains(String word) {
 		return userRepository.countByUserIdContains(word);
+	}
+
+	public boolean user_exist(String userid, String phone) {
+		if (userRepository.countByUserIdAndPhone(userid, phone) != 0)
+			return true;
+		return false;
 	}
 }

@@ -152,7 +152,12 @@
 					</div>
 					<div class="write" onclick="location.href='/main/post/${p.id}'"
 						style="cursor: pointer;">
-						<span>${p.description}</span>
+						<span>${p.description}</span><br />
+						<c:forEach var="cmt" items="${cmt_cnt}">
+							<c:if test="${p.id == cmt.postid && cmt.cnt > 0}">
+								<span style="color: gray;">댓글 ${cmt.cnt}개 모두 보기</span>
+							</c:if>
+						</c:forEach>
 					</div>
 				</div>
 			</c:forEach>

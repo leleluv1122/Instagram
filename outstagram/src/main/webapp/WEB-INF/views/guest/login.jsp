@@ -84,17 +84,19 @@ body {
 							style="margin-left: 20%; margin-top: 15px; width: 300px; background-color: #8fd3ff; border: 1px solid transparent;">로그인</button>
 					</div>
 				</form>
-
+				<div class="pswd" style="margin-left: 70px; margin-top: 130px;">
+					<a href="/guest/pswd">비밀번호를 잊으셨나요?</a>
+				</div>
 				<div
-					style="text-align: center; right: 17%; top: 475; position: absolute;">
+					style="text-align: center; right: 15%; top: 475; position: absolute;">
 
 					<a href="/guest/register" class="btn btn-dark"
 						style="font-size: 15px;">가입하기</a>
+
+					<c:if test="${ param.error != null }">
+						<div class="mt5" style="color: red;">로그인 실패</div>
+					</c:if>
 				</div>
-				<c:if test="${ param.error != null }">
-					<div class="mt5" style="margin-left: 100px; color: red;">로그인
-						실패</div>
-				</c:if>
 
 			</div>
 		</sec:authorize>

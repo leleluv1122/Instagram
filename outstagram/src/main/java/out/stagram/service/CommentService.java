@@ -38,4 +38,8 @@ public class CommentService {
 		commentRepository.deleteById(id);
 		return 1;
 	}
+	
+	public int countByPostId(int id) {
+		return commentRepository.countByPostId(id);
+	}
 }
