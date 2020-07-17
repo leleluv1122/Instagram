@@ -148,6 +148,7 @@
 				</c:otherwise>
 			</c:choose>
 		</div>
+	<div class="black" style="width: 500px; height:600px;"></div>
 	</div>
 
 	<div id="footer">

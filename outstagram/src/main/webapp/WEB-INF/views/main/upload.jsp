@@ -129,7 +129,7 @@ body {
 
 			<div class="form-group">
 				<input type="text" class="form-control w200" id="location"
-					name="location" placeholder="위치 추가" />
+					name="location" placeholder="태그 입력" />
 			</div>
 			<button class="btn btn-primary" style="float: right;">완료</button>
 		</form>

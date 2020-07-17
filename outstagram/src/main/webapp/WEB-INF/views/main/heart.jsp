@@ -60,10 +60,6 @@
 	float: left;
 	margin-right: 20px;
 }
-
-.img {
-	
-}
 </style>
 </head>
 <body>
@@ -92,28 +88,30 @@
 					var a = '';
 					var cur = new Date();
 					var c_time = cur.getTime();
-					
+
 					var ct = '${clicktime}';
 					var cd = new Date(ct.valueOf());
-					
+
 					var chai = c_time - cd.getTime();
-					
-					if(chai < 1000 * 60)
-	                	a += Math.floor(chai / 1000) + ' 초전';
-	                else if(chai < 1000 * 60 * 60)
-	                	a += Math.floor(chai / (1000 * 60)) + ' 분전';
-	                else if(chai < 1000 * 60 * 60 * 24)
-	                	a += Math.floor(chai / (1000 * 60 * 60)) + ' 시간전';
-	                else if(chai < 1000 * 60 * 60 * 24 * 30)
-	                	a += Math.floor(chai / (1000 * 60 * 60 * 24)) + ' 일전';
-	                else if(chai < 1000 * 60 * 60 * 24 * 30 * 12)
-	                	a += Math.floor(chai / (1000 * 60 * 60 * 24 * 30)) + ' 달전';
-					
+
+					if (chai < 1000 * 60)
+						a += Math.floor(chai / 1000) + ' 초전';
+					else if (chai < 1000 * 60 * 60)
+						a += Math.floor(chai / (1000 * 60)) + ' 분전';
+					else if (chai < 1000 * 60 * 60 * 24)
+						a += Math.floor(chai / (1000 * 60 * 60)) + ' 시간전';
+					else if (chai < 1000 * 60 * 60 * 24 * 30)
+						a += Math.floor(chai / (1000 * 60 * 60 * 24)) + ' 일전';
+					else if (chai < 1000 * 60 * 60 * 24 * 30 * 12)
+						a += Math.floor(chai / (1000 * 60 * 60 * 24 * 30))
+								+ ' 달전';
+
 					$(".time_" + '${h.id}').html(a);
 				</script>
 				<hr />
 			</div>
 		</c:forEach>
+		<div class="black" style="width: 500px; height: 50px;"></div>
 	</div>
 
 	<div id="footer">

@@ -102,4 +102,12 @@ public class UserService {
 			return true;
 		return false;
 	}
+	
+	public void pswd_update(String pswd, String userid) {
+		User user = findByUserId(userid);
+		String pw = EncryptionUtils.encryptMD5(pswd);
+		user.setPassword(pw);
+		
+		save_u(user);
+	}
 }

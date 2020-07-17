@@ -20,7 +20,7 @@ public class PostService {
 		
 		pi.setUser(p.getUser());
 		pi.setDescription(p.getDescription());
-		pi.setLocation(p.getLocation());
+		pi.setTag(p.getTag());
 		pi.setCreate_date(timestamp);
 		
 		postRepository.save(pi);
@@ -50,5 +50,13 @@ public class PostService {
 	
 	public List<Post> findByPostlimit9(){
 		return postRepository.findByPostlimit9();
+	}
+	
+	public int countByTagContains(String word) {
+		return postRepository.countByTagContains(word);
+	}
+	
+	public List<Post> findByTagContains(String word){
+		return postRepository.findByTagContains(word);
 	}
 }

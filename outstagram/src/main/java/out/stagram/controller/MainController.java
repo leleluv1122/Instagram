@@ -93,7 +93,7 @@ public class MainController {
 			PoCo p = new PoCo();
 			p.setPostid(po.getId());
 			p.setCnt(commentService.countByPostId(po.getId()));
-			
+
 			cmtcnt.add(p);
 		}
 		model.addAttribute("cmt_cnt", cmtcnt);
@@ -209,7 +209,7 @@ public class MainController {
 		String location = request.getParameter("location");
 
 		post.setDescription(description);
-		post.setLocation(location);
+		post.setTag(location);
 		post.setUser(user);
 
 		post.setId(postService.save(post));
@@ -245,11 +245,21 @@ public class MainController {
 			return "redirect:/main/recommend";
 		}
 
+		model.addAttribute("tag_cnt", postService.countByTagContains(word));
 		model.addAttribute("find_user", userService.findByUserIdContains(word));
 		model.addAttribute("ucnt", userService.countByUserIdContains(word));
 		model.addAttribute("word", word);
 
 		return "main/search";
+	}
+
+	@RequestMapping("main/search/tag/{word}")
+	public String search_tag(@PathVariable("word") String word, Model model) throws Exception {
+		model.addAttribute("post", postService.findByTagContains(word));
+		model.addAttribute("post_image", piService.findByGroupbyPostId());
+		model.addAttribute("word", word);
+
+		return "/main/search/tag";
 	}
 
 	@RequestMapping(value = "main/post/{id}")

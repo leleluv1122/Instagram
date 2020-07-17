@@ -12,9 +12,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<!-- 개발버전, 도움되는 콘솔 경고를 포함. -->
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <link
@@ -28,7 +25,7 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,900&display=swap"
 	rel="stylesheet">
-<title>검색어: ${word}</title>
+<title>태그 ${word}</title>
 <style>
 #footer {
 	position: fixed;
@@ -45,24 +42,33 @@
 
 .search {
 	width: 500px;
-	height: 90px;
+	height: 70px;
 	margin-left: 100px;
 }
 
-.find_user {
+.search_tag {
 	width: 500px;
-	margin-left: 100px;
+	margin-left: 60px;
+	margin-top: 20px;
 }
 
-.f {
-	width: 500px;
-	height: 100px;
+.post_title {
+	float: left;
+	cursor: pointer;
+	height: 160px;
+	width: 160px;
+	overflow: hidden;
+	position: relative;
+	height: 160px;
+	width: 160px;
+	width: 160px;
 }
 
-.tiny_image {
-	width: 80px;
-	height: 80px;
-	border-radius: 7px;
+.nava {
+	width: 500px;
+	height: 30px;
+	margin-left: 70px;
+	margin-top: 20px;
 }
 </style>
 </head>
@@ -81,48 +87,26 @@
 				</button>
 			</form>
 		</div>
-
-		<div class="find_user">
-			<c:choose>
-				<c:when test="${ucnt == 0 && tag_cnt == 0}">
-					<span style="font-size: 25px;">일치하는 유저, 태그가 없습니다</span>
-				</c:when>
-				<c:otherwise>
-					<c:forEach var="u" items="${find_user}">
-						<div class="f">
-							<div class="title_image">
-								<a href="/main/user/${u.id}"> <c:choose>
-										<c:when test="${u.profile_photo != null}">
-											<img src="/images/profile/${u.profile_photo}"
-												class="tiny_image" align="left">
-										</c:when>
-										<c:otherwise>
-											<img src="/images/noimage.png" class="tiny_image"
-												align="left">
-										</c:otherwise>
-									</c:choose>
-
-								</a>
-							</div>
-							<div class="userid_txt">
-								<a href="/main/user/${u.id}"
-									style="font-size: 18px; color: black; margin-left: 9px;">${u.userId}</a>
-							</div>
-						</div>
-					</c:forEach>
-
-					<c:if test="${tag_cnt > 0}">
-						<div class="tag" onclick="location.href='/main/search/tag/${word}'" style="cursor: pointer;">
-							<span><b>#${word}</b></span> <br /> <span>게시물 ${tag_cnt}개</span>
+		<div class="nava">
+			<span style="font-size: 18px;">태그 <b>#${word}</b></span>
+		</div>
+		<div class="search_tag">
+			<c:forEach var="p" items="${post}">
+				<c:forEach var="pi" items="${post_image}">
+					<c:if test="${p.id == pi.postId}">
+						<div onclick="location.href='/main/post/${p.id}'">
+							<img src="/images/${p.user.userId}/${pi.filename}"
+								class="post_title">
 						</div>
 					</c:if>
-				</c:otherwise>
-			</c:choose>
+				</c:forEach>
+			</c:forEach>
 		</div>
+		<div class="black" style="width: 500px; height: 700px;"></div>
 	</div>
 
 	<div id="footer">
-		<%@ include file="../include/bottom.jsp"%>
+		<%@ include file="../../include/bottom.jsp"%>
 	</div>
 </body>
 </html>

@@ -26,7 +26,7 @@ public class Post implements Comparator<Post> {
 	User user;
 
 	String description;
-	String location;
+	String tag;
 
 	Timestamp create_date;
 	Timestamp update_date;

@@ -150,12 +150,33 @@
 							</c:forEach>
 						</div>
 					</div>
-					<div class="write" onclick="location.href='/main/post/${p.id}'"
-						style="cursor: pointer;">
-						<span>${p.description}</span><br />
+					<div class="write" style="cursor: pointer;">
+						<span onclick="location.href='/main/post/${p.id}'">${p.description}</span>
+						<%-- <span style="color: blue">${p.tag}</span> --%>
+
+						<div class="tag_${p.id}"></div>
+						<script>
+							var original = '${p.tag}';
+							var url = '\'/main/search/tag/';
+							var pid = '${p.id}';
+							var a = '';
+							var arr = original.split(', ');
+
+							for (var i = 0; i < arr.length; i++) {
+								a += '<span onclick="location.href=' + url
+										+ arr[i].replace("#", "") + '\'' + '">'
+										+ arr[i] + ' </span>';
+							}
+							$(".tag_" + pid).html(a);
+						</script>
+
+						<br />
+
 						<c:forEach var="cmt" items="${cmt_cnt}">
 							<c:if test="${p.id == cmt.postid && cmt.cnt > 0}">
-								<span style="color: gray;">댓글 ${cmt.cnt}개 모두 보기</span>
+								<span style="color: gray;"
+									onclick="location.href='/main/post/${p.id}'">댓글
+									${cmt.cnt}개 모두 보기</span>
 							</c:if>
 						</c:forEach>
 					</div>

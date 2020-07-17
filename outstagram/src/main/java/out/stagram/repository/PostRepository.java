@@ -18,4 +18,7 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
 	
 	@Query(nativeQuery = true, value = "select * from Post p ORDER BY id desc Limit 9")
 	List<Post> findByPostlimit9();
+	
+	int countByTagContains(String word);
+	List<Post> findByTagContains(String word);
 }

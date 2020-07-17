@@ -55,7 +55,7 @@ public class GuestController {
 			String redirect_url = "redirect:/guest/change_pswd/" + userid;
 			return redirect_url;
 		}
-		
+
 		return "redirect:/guest/pswd?error";
 	}
 
@@ -63,5 +63,14 @@ public class GuestController {
 	public String change_pswd(@PathVariable("userid") String userid, Model model) throws Exception {
 
 		return "/guest/change_pswd";
+	}
+
+	@RequestMapping("guest/change_pswd_correct")
+	public String change_pswd_correct(HttpServletRequest request) throws Exception {
+		String userid = request.getParameter("userid");
+		String pswd = request.getParameter("newpswd");
+		
+		userService.pswd_update(pswd, userid);
+		return "redirect:/guest/login";
 	}
 }
