@@ -1,13 +1,13 @@
 package out.stagram.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -52,15 +52,17 @@ public class GuestController {
 		String phone = request.getParameter("phone");
 
 		if (userService.user_exist(userid, phone)) {
-			String redirect_url = "redirect:/guest/change_pswd/" + userid;
-			return redirect_url;
+			HttpSession session = request.getSession();
+			session.setAttribute("userid", userid);
+			
+			return "redirect:/guest/change_pswd";
 		}
 
 		return "redirect:/guest/pswd?error";
 	}
 
-	@RequestMapping("guest/change_pswd/{userid}")
-	public String change_pswd(@PathVariable("userid") String userid, Model model) throws Exception {
+	@RequestMapping("guest/change_pswd")
+	public String change_pswd(Model model) throws Exception {
 
 		return "/guest/change_pswd";
 	}
@@ -69,8 +71,11 @@ public class GuestController {
 	public String change_pswd_correct(HttpServletRequest request) throws Exception {
 		String userid = request.getParameter("userid");
 		String pswd = request.getParameter("newpswd");
-		
+
 		userService.pswd_update(pswd, userid);
+
+		HttpSession session = request.getSession();
+		session.invalidate();
 		return "redirect:/guest/login";
 	}
 }

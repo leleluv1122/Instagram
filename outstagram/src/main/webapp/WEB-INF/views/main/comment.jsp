@@ -30,9 +30,17 @@
 					var chai = c_time - w_time;
 					
 					a += '<div class="commentArea" style="margin-bottom: 15px;weight:500px; height:50px;">';
-					a += '<div class="img"><a href="/main/user/'+ value.user.id 
-						+'"> <img src="/images/profile/'+ value.user.profile_photo 
-						+'" style="margin-left:30px;margin-right:15px;height:30px;width:30px;border-radius: 30px;float:left;"></a>' + '</div>'
+					a += '<div class="img"><a href="/main/user/'+ value.user.id +'">'; 
+					
+					if(value.user.profile_photo != null){
+						a += '<img src="/images/profile/'+ value.user.profile_photo 
+						+'" style="margin-left:30px;margin-right:15px;height:30px;width:30px;border-radius: 30px;float:left;"></a>';
+					}
+					else{
+						a += '<img src="/images/noimage.png'
+						+'" style="margin-left:30px;margin-right:15px;height:30px;width:30px;border-radius: 30px;float:left;"></a>';
+					}
+					a += '</div>';
 	                a += '<div class="commentContent'+value.id+'"> <a href="/main/user/'
 	                	+ value.user.id +'"><p style="float:left;margin-right:5px;"> <b>' 
 	                	+ value.user.userId + '</b></p></a>' + ' <p>' + value.content +'</p>';
