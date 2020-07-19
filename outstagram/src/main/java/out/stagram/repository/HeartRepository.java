@@ -10,11 +10,16 @@ import out.stagram.domain.Heart;
 
 public interface HeartRepository extends JpaRepository<Heart, Integer> {
 	int countByPostIdAndUserId(int pid, int uid);
-	
+
 	@Modifying
 	@Transactional
 	void deleteByPostIdAndUserId(int pid, int uid);
-	
+
 	List<Heart> findByPostId(int id);
+
 	int countByPostId(int id);
+
+	@Modifying
+	@Transactional
+	void deleteByPostId(int id);
 }

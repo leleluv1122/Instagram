@@ -68,6 +68,11 @@
 	margin-left: 50px;
 }
 
+.delete {
+	margrin-left: 50px;
+	margin-top: 10px;
+}
+
 .write {
 	margin-top: 5px;
 }
@@ -89,10 +94,20 @@
 		<div class="r" style="margin-top: 20px;">
 			<div style="margin-left: 20px;">
 				<div class="title_image">
-					<a href="/main/user/${p.user.id}"> <img
-						src="/images/profile/${p.user.profile_photo}" class="tiny_image"
-						align="left">
-					</a>
+					<c:choose>
+						<c:when test="${p.user.profile_photo == null}">
+							<a href="/main/user/${p.user.id}"> <img
+								src="/images/noimage.png" class="tiny_image" align="left">
+							</a>
+						</c:when>
+						<c:otherwise>
+							<a href="/main/user/${p.user.id}"> <img
+								src="/images/profile/${p.user.profile_photo}" class="tiny_image"
+								align="left">
+							</a>
+						</c:otherwise>
+					</c:choose>
+
 				</div>
 				<div class="userid_txt">
 					<a href="/main/user/${p.user.id}"
@@ -132,6 +147,14 @@
 					style="margin-left: 15px; font-size: 18px; color: purple"></span> <br />
 				<div class="like">
 					<span style="margin-top: 3px;"><b>좋아요 ${heart_cnt}개</b></span>
+				</div>
+
+				<div class="delete" style="float: right;">
+					<form action="/main/delete_post">
+						<input type="hidden" name="postid" value="${p.id}">
+						<button class="btn btn-default" style="float: right;"
+							onclick="return confirm('게시글을 삭제 하시겠습니까?')" type="submit">삭제</button>
+					</form>
 				</div>
 			</div>
 

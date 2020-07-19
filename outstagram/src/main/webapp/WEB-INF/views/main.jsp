@@ -89,10 +89,20 @@
 				<div class="r">
 					<div style="margin-left: 20px;">
 						<div class="title_image">
-							<a href="/main/user/${p.user.id}"> <img
-								src="/images/profile/${p.user.profile_photo}" class="tiny_image"
-								align="left">
-							</a>
+							<c:choose>
+								<c:when test="${p.user.profile_photo == null}">
+									<a href="/main/user/${p.user.id}"> <img
+										src="/images/noimage.png" class="tiny_image" align="left">
+									</a>
+								</c:when>
+								<c:otherwise>
+									<a href="/main/user/${p.user.id}"> <img
+										src="/images/profile/${p.user.profile_photo}"
+										class="tiny_image" align="left">
+									</a>
+								</c:otherwise>
+							</c:choose>
+
 						</div>
 						<div class="userid_txt">
 							<a href="/main/user/${p.user.id}"
@@ -152,7 +162,7 @@
 					</div>
 					<div class="write" style="cursor: pointer;">
 						<span onclick="location.href='/main/post/${p.id}'">${p.description}</span>
-						<%-- <span style="color: blue">${p.tag}</span> --%>
+						<span style="color: blue">${p.tag}</span>
 
 						<div class="tag_${p.id}"></div>
 						<script>
@@ -163,9 +173,11 @@
 							var arr = original.split(', ');
 
 							for (var i = 0; i < arr.length; i++) {
-								a += '<span onclick="location.href=' + url
-										+ arr[i].replace("#", "") + '\'' + '">'
-										+ arr[i] + ' </span>';
+								a += '<span style="color:blue;" onclick="location.href='
+										+ url
+										+ arr[i].replace("#", "")
+										+ '\''
+										+ '">' + arr[i] + ' </span>';
 							}
 							$(".tag_" + pid).html(a);
 						</script>
@@ -182,11 +194,8 @@
 					</div>
 				</div>
 			</c:forEach>
-
 		</div>
-
-
-	</div>
+	</div> 
 
 	<div id="footer">
 		<%@ include file="include/bottom.jsp"%>

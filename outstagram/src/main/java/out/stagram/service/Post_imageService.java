@@ -33,4 +33,8 @@ public class Post_imageService {
 	public List<Post_image> findBypostId(int id){
 		return piRepository.findBypostId(id);
 	}
+	
+	public void deleteByPostId(int id) {
+		piRepository.deleteByPostId(id);
+	}
 }

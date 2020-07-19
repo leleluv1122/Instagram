@@ -42,4 +42,8 @@ public class CommentService {
 	public int countByPostId(int id) {
 		return commentRepository.countByPostId(id);
 	}
+	
+	public void deleteByPostId(int id) {
+		commentRepository.deleteByPostId(id);
+	}
 }

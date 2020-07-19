@@ -15,31 +15,35 @@ import out.stagram.repository.HeartRepository;
 public class HeartService {
 	@Autowired
 	HeartRepository heartRepository;
-	
+
 	public void save(Post p, User u) {
 		Heart h = new Heart();
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		
+
 		h.setPost(p);
 		h.setUser(u);
 		h.setClicktime(timestamp);
-		
+
 		heartRepository.save(h);
 	}
-	
+
 	public int countByPostIdAndUserId(int pid, int uid) {
 		return heartRepository.countByPostIdAndUserId(pid, uid);
 	}
-	
+
 	public void deleteByPostIdAndUserId(int pid, int uid) {
 		heartRepository.deleteByPostIdAndUserId(pid, uid);
 	}
-	
-	public List<Heart> findByPostId(int id){
+
+	public List<Heart> findByPostId(int id) {
 		return heartRepository.findByPostId(id);
 	}
-	
+
 	public int countByPostId(int id) {
 		return heartRepository.countByPostId(id);
+	}
+
+	public void deleteByPostId(int id) {
+		heartRepository.deleteByPostId(id);
 	}
 }

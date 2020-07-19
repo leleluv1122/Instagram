@@ -300,6 +300,19 @@ public class MainController {
 		return "main/heart";
 	}
 
+	@RequestMapping("main/delete_post")
+	public String delete_post(HttpServletRequest request, Model model) throws Exception {
+		String pid = request.getParameter("postid");
+		int postid = Integer.parseInt(pid);
+		
+		commentService.deleteByPostId(postid);
+		heartService.deleteByPostId(postid);
+		piService.deleteByPostId(postid);
+		postService.deleteById(postid);
+		
+		return "redirect:/main";
+	}
+
 	private String rnd(String originalName, byte[] fileData, String path) throws Exception {
 		UUID uuid = UUID.randomUUID();
 		String savedName = uuid.toString() + "_" + originalName;
