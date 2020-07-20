@@ -20,4 +20,8 @@ public interface CommentRepository extends JpaRepository<Comment, Integer> {
 	@Modifying
 	@Transactional
 	void deleteByPostId(int id);
+	
+	@Modifying
+	@Transactional
+	void deleteByUserId(int id);
 }

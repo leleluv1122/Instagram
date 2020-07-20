@@ -8,15 +8,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <link
-	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/minty/bootstrap.min.css"
 	rel="stylesheet" media="screen">
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link
+	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	rel="stylesheet" media="screen">
 <link
 	href="https://fonts.googleapis.com/css?family=Cute+Font|Poor+Story&display=swap&subset=korean"
 	rel="stylesheet">
@@ -25,14 +24,26 @@
 	rel="stylesheet">
 <link rel="stylesheet" href="/res/user.css" type="text/css">
 <title>Outstagram</title>
-<style>
-</style>
 </head>
 <body>
 	<div id="contents">
 		<div class="nav">
-			<span class="title"> <a href="/main/user/${user.id}"
-				class="title_ft" style="margin-right: 80px;">${user.userId}</a></span>
+
+			<nav class="navbar navbar-expand-sm">
+				<span class="title"> <a href="/main/user/${user.id}"
+					class="title_ft" style="margin-right: 80px;">${user.userId}</a></span>
+
+				<ul class="navbar-nav">
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+							내정보 </a>
+						<div class="dropdown-menu">
+							<a class="dropdown-item" href="/main/logout_processing">로그아웃</a>
+							<a class="dropdown-item" href="/main/membership_out">계정삭제</a>
+						</div></li>
+				</ul>
+			</nav>
+
 		</div>
 
 		<div class="profile">
@@ -148,7 +159,7 @@
 				</c:otherwise>
 			</c:choose>
 		</div>
-	<div class="black" style="width: 500px; height:600px;"></div>
+		<div class="black" style="width: 500px; height: 600px;"></div>
 	</div>
 
 	<div id="footer">

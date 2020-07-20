@@ -84,118 +84,129 @@
 				</span> <a href="/main"><span class="glyphicon glyphicon-send"
 					style="color: black;" aria-hidden="true"></span></a>
 			</div>
-
-			<c:forEach var="p" items="${posting}">
-				<div class="r">
-					<div style="margin-left: 20px;">
-						<div class="title_image">
-							<c:choose>
-								<c:when test="${p.user.profile_photo == null}">
-									<a href="/main/user/${p.user.id}"> <img
-										src="/images/noimage.png" class="tiny_image" align="left">
-									</a>
-								</c:when>
-								<c:otherwise>
-									<a href="/main/user/${p.user.id}"> <img
-										src="/images/profile/${p.user.profile_photo}"
-										class="tiny_image" align="left">
-									</a>
-								</c:otherwise>
-							</c:choose>
-
-						</div>
-						<div class="userid_txt">
-							<a href="/main/user/${p.user.id}"
-								style="font-size: 18px; color: black; margin-left: 9px;">${p.user.userId}</a>
-						</div>
+			<c:choose>
+				<c:when test="${psize == 0}">
+					<div class="nopost">
+						<span>게시물이 없습니다.</span> <br /> <a href="/main/recommend">팔로우
+							하러 가기</a>
 					</div>
-					<div id="gallery_wrap">
-						<ul class="slide_gallery">
-							<c:forEach var="img" items="${img}">
-								<c:if test="${p.id == img.postId}">
-									<li><img src="/images/${p.user.userId}/${img.filename}"
-										class="imgg"></li>
-								</c:if>
-							</c:forEach>
-						</ul>
-					</div>
-					<sec:authentication property="user.id" var="currentid" />
-					<div class="bar">
-						<c:forEach var="poco" items="${poco}">
-							<c:if test="${poco.postid == p.id}">
-								<c:choose>
-									<c:when test="${poco.cnt == 0}">
-										<form action="/heart" name="form" method="post">
-											<input type="hidden" name="postid" value="${p.id}"> <input
-												type="hidden" name="userid" value="${currentid}">
-											<button class="glyphicon glyphicon-heart-empty heart"
-												aria-hidden="true"></button>
-										</form>
-									</c:when>
-									<c:otherwise>
-										<form action="/noheart" name="form" method="post">
-											<input type="hidden" name="postid" value="${p.id}"> <input
-												type="hidden" name="userid" value="${currentid}">
-											<button class="glyphicon glyphicon-heart heart"
-												aria-hidden="true"></button>
-										</form>
-									</c:otherwise>
-								</c:choose>
-							</c:if>
-						</c:forEach>
-						<span class="glyphicon glyphicon-comment" aria-hidden="true"
-							onclick="location.href='/main/post/${p.id}'"
-							style="margin-left: 15px; font-size: 18px; color: purple; cursor: pointer;"></span><br />
-						<div class="like">
-							<c:forEach var="lc" items="${like_cnt}">
-								<c:if test="${lc.postid == p.id}">
+				</c:when>
+				<c:otherwise>
+					<c:forEach var="p" items="${posting}">
+						<div class="r">
+							<div style="margin-left: 20px;">
+								<div class="title_image">
 									<c:choose>
-										<c:when test="${lc.cnt==0}">
+										<c:when test="${p.user.profile_photo == null}">
+											<a href="/main/user/${p.user.id}"> <img
+												src="/images/noimage.png" class="tiny_image" align="left">
+											</a>
 										</c:when>
 										<c:otherwise>
-											<span style="margin-top: 3px;"><b>좋아요 ${lc.cnt}개</b></span>
+											<a href="/main/user/${p.user.id}"> <img
+												src="/images/profile/${p.user.profile_photo}"
+												class="tiny_image" align="left">
+											</a>
 										</c:otherwise>
 									</c:choose>
-								</c:if>
-							</c:forEach>
+
+								</div>
+								<div class="userid_txt">
+									<a href="/main/user/${p.user.id}"
+										style="font-size: 18px; color: black; margin-left: 9px;">${p.user.userId}</a>
+								</div>
+							</div>
+							<div id="gallery_wrap">
+								<ul class="slide_gallery">
+									<c:forEach var="img" items="${img}">
+										<c:if test="${p.id == img.postId}">
+											<li><img src="/images/${p.user.userId}/${img.filename}"
+												class="imgg"></li>
+										</c:if>
+									</c:forEach>
+								</ul>
+							</div>
+							<sec:authentication property="user.id" var="currentid" />
+							<div class="bar">
+								<c:forEach var="poco" items="${poco}">
+									<c:if test="${poco.postid == p.id}">
+										<c:choose>
+											<c:when test="${poco.cnt == 0}">
+												<form action="/heart" name="form" method="post">
+													<input type="hidden" name="postid" value="${p.id}">
+													<input type="hidden" name="userid" value="${currentid}">
+													<button class="glyphicon glyphicon-heart-empty heart"
+														aria-hidden="true"></button>
+												</form>
+											</c:when>
+											<c:otherwise>
+												<form action="/noheart" name="form" method="post">
+													<input type="hidden" name="postid" value="${p.id}">
+													<input type="hidden" name="userid" value="${currentid}">
+													<button class="glyphicon glyphicon-heart heart"
+														aria-hidden="true"></button>
+												</form>
+											</c:otherwise>
+										</c:choose>
+									</c:if>
+								</c:forEach>
+								<span class="glyphicon glyphicon-comment" aria-hidden="true"
+									onclick="location.href='/main/post/${p.id}'"
+									style="margin-left: 15px; font-size: 18px; color: purple; cursor: pointer;"></span><br />
+								<div class="like">
+									<c:forEach var="lc" items="${like_cnt}">
+										<c:if test="${lc.postid == p.id}">
+											<c:choose>
+												<c:when test="${lc.cnt==0}">
+												</c:when>
+												<c:otherwise>
+													<span style="margin-top: 3px;"><b>좋아요 ${lc.cnt}개</b></span>
+												</c:otherwise>
+											</c:choose>
+										</c:if>
+									</c:forEach>
+								</div>
+							</div>
+							<div class="write" style="cursor: pointer;">
+								<span onclick="location.href='/main/post/${p.id}'">${p.description}</span>
+								<span style="color: blue">${p.tag}</span>
+
+								<div class="tag_${p.id}"></div>
+								<script>
+									var original = '${p.tag}';
+									var url = '\'/main/search/tag/';
+									var pid = '${p.id}';
+									var a = '';
+									var arr = original.split(', ');
+
+									for (var i = 0; i < arr.length; i++) {
+										a += '<span style="color:blue;" onclick="location.href='
+												+ url
+												+ arr[i].replace("#", "")
+												+ '\''
+												+ '">'
+												+ arr[i]
+												+ ' </span>';
+									}
+									$(".tag_" + pid).html(a);
+								</script>
+
+								<br />
+
+								<c:forEach var="cmt" items="${cmt_cnt}">
+									<c:if test="${p.id == cmt.postid && cmt.cnt > 0}">
+										<span style="color: gray;"
+											onclick="location.href='/main/post/${p.id}'">댓글
+											${cmt.cnt}개 모두 보기</span>
+									</c:if>
+								</c:forEach>
+							</div>
 						</div>
-					</div>
-					<div class="write" style="cursor: pointer;">
-						<span onclick="location.href='/main/post/${p.id}'">${p.description}</span>
-						<span style="color: blue">${p.tag}</span>
-
-						<div class="tag_${p.id}"></div>
-						<script>
-							var original = '${p.tag}';
-							var url = '\'/main/search/tag/';
-							var pid = '${p.id}';
-							var a = '';
-							var arr = original.split(', ');
-
-							for (var i = 0; i < arr.length; i++) {
-								a += '<span style="color:blue;" onclick="location.href='
-										+ url
-										+ arr[i].replace("#", "")
-										+ '\''
-										+ '">' + arr[i] + ' </span>';
-							}
-							$(".tag_" + pid).html(a);
-						</script>
-
-						<br />
-
-						<c:forEach var="cmt" items="${cmt_cnt}">
-							<c:if test="${p.id == cmt.postid && cmt.cnt > 0}">
-								<span style="color: gray;"
-									onclick="location.href='/main/post/${p.id}'">댓글
-									${cmt.cnt}개 모두 보기</span>
-							</c:if>
-						</c:forEach>
-					</div>
-				</div>
-			</c:forEach>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
 		</div>
-	</div> 
+	</div>
 
 	<div id="footer">
 		<%@ include file="include/bottom.jsp"%>

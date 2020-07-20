@@ -27,6 +27,7 @@ import out.stagram.domain.PoCo;
 import out.stagram.domain.Post;
 import out.stagram.domain.Post_image;
 import out.stagram.domain.User;
+import out.stagram.service.ChatService;
 import out.stagram.service.CommentService;
 import out.stagram.service.FollowService;
 import out.stagram.service.HeartService;
@@ -48,6 +49,8 @@ public class MainController {
 	HeartService heartService;
 	@Autowired
 	CommentService commentService;
+	@Autowired
+	ChatService chatService;
 
 	@RequestMapping("/main")
 	public String main_page(Model model) throws Exception {
@@ -104,6 +107,7 @@ public class MainController {
 
 		model.addAttribute("user", u);
 		model.addAttribute("posting", posting);
+		model.addAttribute("psize", posting.size());
 		model.addAttribute("img", piService.findAll());
 
 		return "/main";
@@ -304,13 +308,42 @@ public class MainController {
 	public String delete_post(HttpServletRequest request, Model model) throws Exception {
 		String pid = request.getParameter("postid");
 		int postid = Integer.parseInt(pid);
-		
+
 		commentService.deleteByPostId(postid);
 		heartService.deleteByPostId(postid);
 		piService.deleteByPostId(postid);
 		postService.deleteById(postid);
-		
+
 		return "redirect:/main";
+	}
+
+	@RequestMapping("/main/membership_out")
+	public String apply_cancel(Model model) throws Exception {
+
+		return "main/membership_out";
+	}
+
+	@RequestMapping("/main/real_out")
+	public String real_out(HttpServletRequest request) throws Exception {
+		String uid = request.getParameter("uid");
+		String reason = request.getParameter("reason");
+		String pswd = request.getParameter("pswd");
+
+		int userid = Integer.parseInt(uid);
+		int reason_id = Integer.parseInt(reason);
+
+		if (userService.user_exit2(userid, pswd)) {
+
+			return "main/membership_out?error";
+		}
+
+		chatService.deleteUser(userid);
+		commentService.deleteByUserId(userid);
+		followService.delete_user(userid);
+
+		userService.deleteById(userid);
+
+		return "redirect:/guest/login";
 	}
 
 	private String rnd(String originalName, byte[] fileData, String path) throws Exception {

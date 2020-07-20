@@ -31,4 +31,9 @@ public class ChatService {
 	public List<Chat> findBySendIdAndReceiveId(int s, int r) {
 		return chatRepository.findBySendIdAndReceiveId(s, r);
 	}
+	
+	public void deleteUser(int id) {
+		chatRepository.deleteBySendId(id);
+		chatRepository.deleteByReceiveId(id);
+	}
 }

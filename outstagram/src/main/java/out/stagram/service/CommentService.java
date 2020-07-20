@@ -46,4 +46,8 @@ public class CommentService {
 	public void deleteByPostId(int id) {
 		commentRepository.deleteByPostId(id);
 	}
+	
+	public void deleteByUserId(int id) {
+		commentRepository.deleteByUserId(id);
+	}
 }

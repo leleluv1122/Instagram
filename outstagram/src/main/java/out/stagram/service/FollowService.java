@@ -52,4 +52,9 @@ public class FollowService {
 	public List<Follow> findByFollowerId(int id){
 		return followRepository.findByFollowerId(id);
 	}
+	
+	public void delete_user(int id) {
+		followRepository.deleteByFollowerId(id);
+		followRepository.deleteByFollowingId(id);
+	}
 }

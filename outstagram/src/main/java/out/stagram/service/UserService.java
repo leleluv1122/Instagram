@@ -103,11 +103,23 @@ public class UserService {
 		return false;
 	}
 	
+	public boolean user_exit2(int uid, String pswd) {
+		String pw = EncryptionUtils.encryptMD5(pswd);
+		if(userRepository.countByIdAndPassword(uid, pw) == 0) {
+			return true;
+		}
+		return false;
+	}
+	
 	public void pswd_update(String pswd, String userid) {
 		User user = findByUserId(userid);
 		String pw = EncryptionUtils.encryptMD5(pswd);
 		user.setPassword(pw);
 		
 		save_u(user);
+	}
+	
+	public void deleteById(int id) {
+		userRepository.deleteById(id);
 	}
 }
