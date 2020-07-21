@@ -26,22 +26,24 @@
 <title>Outstagram</title>
 </head>
 <body>
+	<sec:authentication property="user.id" var="currentid" />
 	<div id="contents">
 		<div class="nav">
-
 			<nav class="navbar navbar-expand-sm">
 				<span class="title"> <a href="/main/user/${user.id}"
 					class="title_ft" style="margin-right: 80px;">${user.userId}</a></span>
-
-				<ul class="navbar-nav">
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
-							내정보 </a>
-						<div class="dropdown-menu">
-							<a class="dropdown-item" href="/main/logout_processing">로그아웃</a>
-							<a class="dropdown-item" href="/main/membership_out">계정삭제</a>
-						</div></li>
-				</ul>
+				<c:if test="${currentid == page_id}">
+					<ul class="navbar-nav">
+						<li class="nav-item dropdown"><a
+							class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+								내정보 </a>
+							<div class="dropdown-menu">
+								<a class="dropdown-item" href="/main/logout_processing">로그아웃</a>
+								<a class="dropdown-item" href="/main/membership_out">계정삭제</a> <a
+									class="dropdown-item" href="/main/user/secret_user">계정공개범위</a>
+							</div></li>
+					</ul>
+				</c:if>
 			</nav>
 
 		</div>
@@ -83,7 +85,6 @@
 				href="${user.website}" style="margin-left: 80px; color: black;">${user.website}</a>
 		</div>
 
-		<sec:authentication property="user.id" var="currentid" />
 
 		<c:choose>
 			<c:when test="${page_id == currentid}">
@@ -119,8 +120,6 @@
 			</c:otherwise>
 		</c:choose>
 
-
-		<sec:authentication property="user.id" var="currentid" />
 		<sec:authentication property="user.userId" var="currentuserId" />
 		<div class="posting">
 			<c:choose>

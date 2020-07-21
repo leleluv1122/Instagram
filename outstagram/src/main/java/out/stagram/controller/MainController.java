@@ -270,6 +270,8 @@ public class MainController {
 	public String post(@PathVariable("id") int id, Model model) throws Exception {
 		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = userService.findByUserId(userId);
+
+		model.addAttribute("postuserid", postService.findById(id).getUser().getId());
 		model.addAttribute("p", postService.findById(id));
 		model.addAttribute("img", piService.findBypostId(id));
 		model.addAttribute("heart_cnt", heartService.countByPostId(id)); // 게시글 하트개수
@@ -326,15 +328,23 @@ public class MainController {
 	@RequestMapping("/main/real_out")
 	public String real_out(HttpServletRequest request) throws Exception {
 		String uid = request.getParameter("uid");
-		String reason = request.getParameter("reason");
+		// String reason = request.getParameter("reason");
 		String pswd = request.getParameter("pswd");
 
 		int userid = Integer.parseInt(uid);
-		int reason_id = Integer.parseInt(reason);
+		// int reason_id = Integer.parseInt(reason);
 
 		if (userService.user_exit2(userid, pswd)) {
 
-			return "main/membership_out?error";
+			return "redirect:/main/membership_out?error";
+		}
+
+		List<Post> pl = postService.findByUserId(userid);
+		for (Post p : pl) {
+			commentService.deleteByPostId(p.getId());
+			heartService.deleteByPostId(p.getId());
+			piService.deleteByPostId(p.getId());
+			postService.deleteById(p.getId());
 		}
 
 		chatService.deleteUser(userid);
@@ -343,7 +353,13 @@ public class MainController {
 
 		userService.deleteById(userid);
 
-		return "redirect:/guest/login";
+		return "redirect:/main/logout_processing";
+	}
+
+	@RequestMapping("main/user/secret_user")
+	public String secret_user(Model model) throws Exception {
+
+		return "main/user/secret_user";
 	}
 
 	private String rnd(String originalName, byte[] fileData, String path) throws Exception {

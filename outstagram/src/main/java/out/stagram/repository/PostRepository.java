@@ -27,4 +27,6 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
 	@Modifying
 	@Transactional
 	void deleteById(int id);
+	
+	List<Post> findByUserId(int id);
 }

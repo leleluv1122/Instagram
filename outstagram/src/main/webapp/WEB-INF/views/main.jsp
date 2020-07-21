@@ -169,7 +169,7 @@
 							</div>
 							<div class="write" style="cursor: pointer;">
 								<span onclick="location.href='/main/post/${p.id}'">${p.description}</span>
-								<span style="color: blue">${p.tag}</span>
+								<%-- <span style="color: blue">${p.tag}</span> --%>
 
 								<div class="tag_${p.id}"></div>
 								<script>
@@ -180,13 +180,9 @@
 									var arr = original.split(', ');
 
 									for (var i = 0; i < arr.length; i++) {
-										a += '<span style="color:blue;" onclick="location.href='
-												+ url
-												+ arr[i].replace("#", "")
-												+ '\''
-												+ '">'
-												+ arr[i]
-												+ ' </span>';
+										a += '<span style="color:blue;" onclick="location.href=' + url
+												+ arr[i].replace("#", "") + '\'' + '">'
+												+ arr[i] + ' </span>';
 									}
 									$(".tag_" + pid).html(a);
 								</script>

@@ -149,13 +149,15 @@
 					<span style="margin-top: 3px;"><b>좋아요 ${heart_cnt}개</b></span>
 				</div>
 
-				<div class="delete" style="float: right;">
-					<form action="/main/delete_post">
-						<input type="hidden" name="postid" value="${p.id}">
-						<button class="btn btn-default" style="float: right;"
-							onclick="return confirm('게시글을 삭제 하시겠습니까?')" type="submit">삭제</button>
-					</form>
-				</div>
+				<c:if test="${postuserid == currentid}">
+					<div class="delete" style="float: right;">
+						<form action="/main/delete_post">
+							<input type="hidden" name="postid" value="${p.id}">
+							<button class="btn btn-default" style="float: right;"
+								onclick="return confirm('게시글을 삭제 하시겠습니까?')" type="submit">삭제</button>
+						</form>
+					</div>
+				</c:if>
 			</div>
 
 			<div class="write">

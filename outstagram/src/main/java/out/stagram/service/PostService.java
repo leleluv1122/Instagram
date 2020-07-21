@@ -63,4 +63,8 @@ public class PostService {
 	public void deleteById(int id) {
 		postRepository.deleteById(id);
 	}
+	
+	public List<Post> findByUserId(int id){
+		return postRepository.findByUserId(id);
+	}
 }
