@@ -54,7 +54,6 @@
 }
 
 .heart {
-	margin-left: 45px;
 	background-color: white;
 	border: 0;
 	outline: 0;
@@ -125,7 +124,8 @@
 				</ul>
 			</div>
 			<div class="bar">
-				<c:choose>
+				<div class="like"></div>
+				<%-- <c:choose>
 					<c:when test="${hcnt == 0}">
 						<form action="/heart" name="form" method="post">
 							<input type="hidden" name="postid" value="${p.id}"> <input
@@ -147,7 +147,7 @@
 					style="margin-left: 15px; font-size: 18px; color: purple"></span> <br />
 				<div class="like">
 					<span style="margin-top: 3px;"><b>좋아요 ${heart_cnt}개</b></span>
-				</div>
+				</div> --%>
 
 				<c:if test="${postuserid == currentid}">
 					<div class="delete" style="float: right;">
@@ -189,5 +189,6 @@
 		<%@ include file="../include/bottom.jsp"%>
 	</div>
 	<%@ include file="comment.jsp"%>
+	<%@ include file="like.jsp"%>
 </body>
 </html>
