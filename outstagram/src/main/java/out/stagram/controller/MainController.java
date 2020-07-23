@@ -124,7 +124,7 @@ public class MainController {
 		model.addAttribute("post", postService.findByUserIdOrderByIdDesc(id));
 		model.addAttribute("post_image", piService.findByGroupbyPostId());
 		model.addAttribute("post_count", postService.countByUserId(id));
-		model.addAttribute("follow", followService.find(id, userId));
+		// model.addAttribute("follow", followService.find(id, userId));
 
 		model.addAttribute("follower", followService.countByFollowerId(id));
 		model.addAttribute("following", followService.countByFollowingId(id));
@@ -358,7 +358,11 @@ public class MainController {
 
 	@RequestMapping("main/user/secret_user")
 	public String secret_user(Model model) throws Exception {
-
+		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = userService.findByUserId(userId);
+		
+		model.addAttribute("id", user.getId());
+		
 		return "main/user/secret_user";
 	}
 

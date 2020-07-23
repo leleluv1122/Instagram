@@ -24,6 +24,11 @@
 	rel="stylesheet">
 <link rel="stylesheet" href="/res/user.css" type="text/css">
 <title>Outstagram</title>
+<style>
+.follow_d {
+	height: 50px;
+}
+</style>
 </head>
 <body>
 	<sec:authentication property="user.id" var="currentid" />
@@ -69,8 +74,9 @@
 
 			<div class="txt" style="cursor: pointer;"
 				onclick="location.href='/main/user/follower/${page_id}'">
-				<span style="margin-left: 20px;">${follower}</span><br> <span
-					style="margin-left: 8px;">팔로워</span>
+				<div class="follower_d"></div>
+				<%-- <span style="margin-left: 20px;">${follower}</span><br> <span
+					style="margin-left: 8px;">팔로워</span> --%>
 			</div>
 
 			<div class="txt" style="cursor: pointer;"
@@ -95,7 +101,8 @@
 			</c:when>
 
 			<c:otherwise>
-				<div class="fix">
+				<div class="follow_d"></div>
+				<%-- <div class="fix">
 					<c:choose>
 						<c:when test="${follow == true}">
 							<form action="/unfollow" name="form" method="post">
@@ -116,7 +123,7 @@
 					</c:choose>
 					<a href="/main/user/message/${page_id}" class="btn btn-default"
 						style="margin-left: 20px; width: 180px;">메시지</a>
-				</div>
+				</div> --%>
 			</c:otherwise>
 		</c:choose>
 
@@ -164,5 +171,6 @@
 	<div id="footer">
 		<%@ include file="../include/bottom.jsp"%>
 	</div>
+	<%@ include file="follow_s.jsp"%>
 </body>
 </html>

@@ -75,6 +75,13 @@ public class UserService {
 
 		save_u(user);
 	}
+	
+	public void enable_user(int id, int t) {
+		User user = findById(id);
+		user.setEnable(t);
+		
+		save_u(user);
+	}
 
 	public void profile_update(String userId, String name, String website, String introduce) {
 		User user = findByUserId(userId);
@@ -102,24 +109,31 @@ public class UserService {
 			return true;
 		return false;
 	}
-	
+
 	public boolean user_exit2(int uid, String pswd) {
 		String pw = EncryptionUtils.encryptMD5(pswd);
-		if(userRepository.countByIdAndPassword(uid, pw) == 0) {
+		if (userRepository.countByIdAndPassword(uid, pw) == 0) {
 			return true;
 		}
 		return false;
 	}
-	
+
 	public void pswd_update(String pswd, String userid) {
 		User user = findByUserId(userid);
 		String pw = EncryptionUtils.encryptMD5(pswd);
 		user.setPassword(pw);
-		
+
 		save_u(user);
 	}
-	
+
 	public void deleteById(int id) {
 		userRepository.deleteById(id);
+	}
+
+	public boolean IsSecret(int id) {
+		User u = userRepository.findById(id);
+		if (u.getEnable() == 1)
+			return true;
+		return false;
 	}
 }
