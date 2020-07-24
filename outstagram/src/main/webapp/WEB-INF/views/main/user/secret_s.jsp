@@ -36,7 +36,7 @@
 			type : 'post',
 			success : function(data){
 				if(data == 1){
-					alert("비공개 계정으로 전환됩니다.");
+					alert("계정이 비공개 상태인 경우 회원님이 승인한 사람만 Outstagram에서 회원님의 사진, 동영상, 스토리를 볼 수 있습니다. 기존 팔로워는 영향을 받지 않습니다.");
 					secretview();
 				}
 			}

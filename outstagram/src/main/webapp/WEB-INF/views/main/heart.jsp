@@ -40,6 +40,16 @@
 	bottom: 6rem;
 }
 
+.request_user {
+	width: 500px;
+	margin-left: 50px;
+}
+
+.f {
+	width: 500px;
+	height: 50px;
+}
+
 .nava {
 	width: 500px;
 	height: 50px;
@@ -60,10 +70,28 @@
 	float: left;
 	margin-right: 20px;
 }
+
+.title_image {
+	cursor: pointer;
+}
+
+.userid_txt {
+	font-size: 18px;
+	margin-left: 9px;
+	cursor: pointer;
+}
 </style>
 </head>
 <body>
 	<div id="contents">
+		<c:if test="${followcount != 0}">
+			<div class="nava">
+				<span style="font-size: 18px;">팔로우 요청 알림 </span><span
+					style="color: red;">${followcount}개</span>
+			</div>
+			<div class="request_user"></div>
+		</c:if>
+
 		<div class="nava">
 			<span style="font-size: 18px;">좋아요 알림</span>
 		</div>
@@ -117,5 +145,6 @@
 	<div id="footer">
 		<%@ include file="../include/bottom.jsp"%>
 	</div>
+	<%@ include file="followrequest.jsp"%>
 </body>
 </html>

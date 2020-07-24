@@ -130,40 +130,94 @@
 		<sec:authentication property="user.userId" var="currentuserId" />
 		<div class="posting">
 			<c:choose>
-				<c:when test="${post_count != 0}">
-					<c:forEach var="p" items="${post}">
-						<c:forEach var="pi" items="${post_image}">
-							<c:if test="${p.id == pi.postId}">
-								<div onclick="location.href='/main/post/${p.id}'">
-									<img src="/images/${p.user.userId}/${pi.filename}"
-										class="post_title">
-								</div>
-							</c:if>
-						</c:forEach>
-					</c:forEach>
+				<c:when test="${currentid == page_id}">
+					<c:choose>
+						<c:when test="${post_count != 0}">
+							<c:forEach var="p" items="${post}">
+								<c:forEach var="pi" items="${post_image}">
+									<c:if test="${p.id == pi.postId}">
+										<div onclick="location.href='/main/post/${p.id}'">
+											<img src="/images/${p.user.userId}/${pi.filename}"
+												class="post_title">
+										</div>
+									</c:if>
+								</c:forEach>
+							</c:forEach>
+						</c:when>
+						<c:otherwise>
+							<span>사진 공유</span>
+							<br />
+							<span>사진과 동영상을 공유하면 프로필에 표시됩니다.</span>
+							<br />
+							<a href="/main/upload">첫 번째 사진을 공유해보세요</a>
+						</c:otherwise>
+					</c:choose>
 				</c:when>
 				<c:otherwise>
-					<div class="empty" style="margin-top: 20px;">
-						<c:choose>
-							<c:when test="${currentid == page_id}">
-								<span>사진 공유</span>
-								<br />
-								<span>사진과 동영상을 공유하면 프로필에 표시됩니다.</span>
-								<br />
-								<a href="/main/upload">첫 번째 사진을 공유해보세요</a>
-							</c:when>
-							<c:otherwise>
-								<span
-									style="font-size: 15px; font-weight: bold; margin-left: 5px;">게시물
-									없음</span>
-								<br />
-								<br />
-								<span>${page_userId}님이 게시하는 사진과 동영상이 여기에 표시됩니다.</span>
-							</c:otherwise>
-						</c:choose>
-					</div>
+					<c:choose>
+						<c:when test="${user.enable == 2}">
+							<c:choose>
+								<c:when test="${follow == true}">
+									<c:forEach var="p" items="${post}">
+										<c:forEach var="pi" items="${post_image}">
+											<c:if test="${p.id == pi.postId}">
+												<div onclick="location.href='/main/post/${p.id}'">
+													<img src="/images/${p.user.userId}/${pi.filename}"
+														class="post_title">
+												</div>
+											</c:if>
+										</c:forEach>
+									</c:forEach>
+								</c:when>
+								<c:otherwise>
+									<span style="margin-left:175px;"><b>비공개 계정입니다.</b></span>
+								</c:otherwise>
+							</c:choose>
+						</c:when>
+						<c:otherwise>
+
+						</c:otherwise>
+					</c:choose>
 				</c:otherwise>
 			</c:choose>
+
+
+
+			<%-- <c:choose>
+						<c:when test="${post_count != 0}">
+							<c:forEach var="p" items="${post}">
+								<c:forEach var="pi" items="${post_image}">
+									<c:if test="${p.id == pi.postId}">
+										<div onclick="location.href='/main/post/${p.id}'">
+											<img src="/images/${p.user.userId}/${pi.filename}"
+												class="post_title">
+										</div>
+									</c:if>
+								</c:forEach>
+							</c:forEach>
+						</c:when>
+						<c:otherwise>
+							<div class="empty" style="margin-top: 20px;">
+								<c:choose>
+									<c:when test="${currentid == page_id}">
+										<span>사진 공유</span>
+										<br />
+										<span>사진과 동영상을 공유하면 프로필에 표시됩니다.</span>
+										<br />
+										<a href="/main/upload">첫 번째 사진을 공유해보세요</a>
+									</c:when>
+									<c:otherwise>
+										<span
+											style="font-size: 15px; font-weight: bold; margin-left: 5px;">게시물
+											없음</span>
+										<br />
+										<br />
+										<span>${page_userId}님이 게시하는 사진과 동영상이 여기에 표시됩니다.</span>
+									</c:otherwise>
+								</c:choose>
+							</div>
+						</c:otherwise>
+					</c:choose> --%>
 		</div>
 		<div class="black" style="width: 500px; height: 600px;"></div>
 	</div>

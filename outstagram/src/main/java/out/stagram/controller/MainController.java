@@ -30,6 +30,7 @@ import out.stagram.domain.User;
 import out.stagram.service.ChatService;
 import out.stagram.service.CommentService;
 import out.stagram.service.FollowService;
+import out.stagram.service.Follow_requestService;
 import out.stagram.service.HeartService;
 import out.stagram.service.PostService;
 import out.stagram.service.Post_imageService;
@@ -51,6 +52,8 @@ public class MainController {
 	CommentService commentService;
 	@Autowired
 	ChatService chatService;
+	@Autowired
+	Follow_requestService frService;
 
 	@RequestMapping("/main")
 	public String main_page(Model model) throws Exception {
@@ -124,7 +127,7 @@ public class MainController {
 		model.addAttribute("post", postService.findByUserIdOrderByIdDesc(id));
 		model.addAttribute("post_image", piService.findByGroupbyPostId());
 		model.addAttribute("post_count", postService.countByUserId(id));
-		// model.addAttribute("follow", followService.find(id, userId));
+		model.addAttribute("follow", followService.find(id, userId));
 
 		model.addAttribute("follower", followService.countByFollowerId(id));
 		model.addAttribute("following", followService.countByFollowingId(id));
@@ -285,7 +288,7 @@ public class MainController {
 	@RequestMapping("main/heart")
 	public String heart(Model model) throws Exception {
 		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
-		// User user = userService.findByUserId(userId);
+		User user = userService.findByUserId(userId);
 		List<Post> Lpost = postService.findByUserUserId(userId);
 
 		List<Heart> Lheart = new ArrayList<>();
@@ -296,6 +299,9 @@ public class MainController {
 				Lheart.add(hh);
 			}
 		}
+
+		int followcount = frService.countByReceiveId(user.getId());
+		model.addAttribute("followcount", followcount);
 
 		Heart he = new Heart();
 		Collections.sort(Lheart, he);
@@ -360,9 +366,9 @@ public class MainController {
 	public String secret_user(Model model) throws Exception {
 		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = userService.findByUserId(userId);
-		
+
 		model.addAttribute("id", user.getId());
-		
+
 		return "main/user/secret_user";
 	}
 

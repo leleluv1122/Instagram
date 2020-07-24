@@ -18,8 +18,20 @@
 						+ '팔로우 취소</a>'
 				}
 				else{
-					a += '<a class="btn btn-default" onclick="followInsert('+ pageid +')" style="margin-left: 110px; width: 180px; float: left;">' 
-						+ '팔로우</a>'
+					if(data.pageuser.enable == 2){
+						if(data.isrequest == true){
+							a += '<a class="btn btn-default" style="margin-left: 110px; width: 180px; float: left;">' 
+								+ '요청됨</a>';
+						}
+						else{
+							a += '<a class="btn btn-default" onclick="follow_request('+ pageid +')" style="margin-left: 110px; width: 180px; float: left;">' 
+								+ '팔로우 신청</a>';
+						}
+					}
+					else{
+						a += '<a class="btn btn-default" onclick="followInsert('+ pageid +')" style="margin-left: 110px; width: 180px; float: left;">' 
+							+ '팔로우</a>';
+					}
 				}
 				b += '<span style="margin-left: 20px;">'+ data.follower +'</span><br> <span' +
 				'style="margin-left: 8px;">팔로워</span>';
@@ -48,8 +60,22 @@
 			url : '/follow/delete/' + id,
 			type : 'post',
 			success : function(data){
-				if(data == 1)
+				if(data == 1){
 					followview();
+				}
+			}
+		});
+	}
+	
+	function follow_request(id){
+		$.ajax({
+			url : '/follow/request/' + id,
+			type : 'post',
+			success : function(data){
+				if(data == 1){
+					alert('팔로우를 요청합니다.');
+					followview();
+				}
 			}
 		});
 	}
