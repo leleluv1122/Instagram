@@ -113,7 +113,21 @@ public class FollowController {
 	private List<Follow_request> follow_request_view() throws Exception {
 		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
 		User u = userService.findByUserId(userId);
-		
+
 		return frService.findByReceiveId(u.getId());
+	}
+
+	@RequestMapping("/follow/request/accept/{id}")
+	@ResponseBody
+	private User follow_request_accept(@PathVariable int id) throws Exception {
+		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+		User u = userService.findByUserId(userId);
+
+		User followuser = userService.findById(id);
+
+		frService.deleteByRequestIdAndReceiveId(id, u.getId());
+		followService.save(followuser.getId(), u.getId());
+
+		return followuser;
 	}
 }

@@ -102,32 +102,8 @@
 
 			<c:otherwise>
 				<div class="follow_d"></div>
-				<%-- <div class="fix">
-					<c:choose>
-						<c:when test="${follow == true}">
-							<form action="/unfollow" name="form" method="post">
-								<input type="hidden" value="${currentid}" name="user_id">
-								<input type="hidden" value="${page_id}" name="page_id">
-								<button class="btn btn-default" type="submit"
-									style="margin-left: 110px; width: 180px; float: left;">언팔로잉</button>
-							</form>
-						</c:when>
-						<c:otherwise>
-							<form action="/follow" name="form" method="post">
-								<input type="hidden" value="${currentid}" name="user_id">
-								<input type="hidden" value="${page_id}" name="page_id">
-								<button class="btn btn-default"
-									style="margin-left: 110px; width: 180px; float: left;">팔로잉</button>
-							</form>
-						</c:otherwise>
-					</c:choose>
-					<a href="/main/user/message/${page_id}" class="btn btn-default"
-						style="margin-left: 20px; width: 180px;">메시지</a>
-				</div> --%>
 			</c:otherwise>
 		</c:choose>
-
-		<sec:authentication property="user.userId" var="currentuserId" />
 		<div class="posting">
 			<c:choose>
 				<c:when test="${currentid == page_id}">
@@ -158,6 +134,37 @@
 						<c:when test="${user.enable == 2}">
 							<c:choose>
 								<c:when test="${follow == true}">
+									<c:choose>
+										<c:when test="${post_count != 0}">
+											<c:forEach var="p" items="${post}">
+												<c:forEach var="pi" items="${post_image}">
+													<c:if test="${p.id == pi.postId}">
+														<div onclick="location.href='/main/post/${p.id}'">
+															<img src="/images/${p.user.userId}/${pi.filename}"
+																class="post_title">
+														</div>
+													</c:if>
+												</c:forEach>
+											</c:forEach>
+										</c:when>
+										<c:otherwise>
+											<span
+												style="font-size: 15px; font-weight: bold; margin-left: 5px;">게시물
+												없음</span>
+											<br />
+											<br />
+											<span>${user.userId}님이 게시하는 사진과 동영상이 여기에 표시됩니다.</span>
+										</c:otherwise>
+									</c:choose>
+								</c:when>
+								<c:otherwise>
+									<span style="margin-left: 175px;"><b>비공개 계정입니다.</b></span>
+								</c:otherwise>
+							</c:choose>
+						</c:when>
+						<c:otherwise>
+							<c:choose>
+								<c:when test="${post_count != 0}">
 									<c:forEach var="p" items="${post}">
 										<c:forEach var="pi" items="${post_image}">
 											<c:if test="${p.id == pi.postId}">
@@ -170,17 +177,41 @@
 									</c:forEach>
 								</c:when>
 								<c:otherwise>
-									<span style="margin-left:175px;"><b>비공개 계정입니다.</b></span>
+									<span
+										style="font-size: 15px; font-weight: bold; margin-left: 5px;">게시물
+										없음</span>
+									<br />
+									<br />
+									<span>${user.userId}님이 게시하는 사진과 동영상이 여기에 표시됩니다.</span>
 								</c:otherwise>
 							</c:choose>
-						</c:when>
-						<c:otherwise>
-
 						</c:otherwise>
 					</c:choose>
 				</c:otherwise>
 			</c:choose>
 
+			<%-- <div class="fix">
+					<c:choose>
+						<c:when test="${follow == true}">
+							<form action="/unfollow" name="form" method="post">
+								<input type="hidden" value="${currentid}" name="user_id">
+								<input type="hidden" value="${page_id}" name="page_id">
+								<button class="btn btn-default" type="submit"
+									style="margin-left: 110px; width: 180px; float: left;">언팔로잉</button>
+							</form>
+						</c:when>
+						<c:otherwise>
+							<form action="/follow" name="form" method="post">
+								<input type="hidden" value="${currentid}" name="user_id">
+								<input type="hidden" value="${page_id}" name="page_id">
+								<button class="btn btn-default"
+									style="margin-left: 110px; width: 180px; float: left;">팔로잉</button>
+							</form>
+						</c:otherwise>
+					</c:choose>
+					<a href="/main/user/message/${page_id}" class="btn btn-default"
+						style="margin-left: 20px; width: 180px;">메시지</a>
+				</div> --%>
 
 
 			<%-- <c:choose>
