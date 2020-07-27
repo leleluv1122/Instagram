@@ -128,7 +128,8 @@
 							</div>
 							<sec:authentication property="user.id" var="currentid" />
 							<div class="bar">
-								<c:forEach var="poco" items="${poco}">
+								<div class="heart_${p.id}"></div>
+								<%-- <c:forEach var="poco" items="${poco}">
 									<c:if test="${poco.postid == p.id}">
 										<c:choose>
 											<c:when test="${poco.cnt == 0}">
@@ -165,7 +166,7 @@
 											</c:choose>
 										</c:if>
 									</c:forEach>
-								</div>
+								</div> --%>
 							</div>
 							<div class="write" style="cursor: pointer;">
 								<span onclick="location.href='/main/post/${p.id}'">${p.description}</span>
@@ -207,5 +208,6 @@
 	<div id="footer">
 		<%@ include file="include/bottom.jsp"%>
 	</div>
+	<%@ include file="main/main_heart.jsp"%>
 </body>
 </html>
