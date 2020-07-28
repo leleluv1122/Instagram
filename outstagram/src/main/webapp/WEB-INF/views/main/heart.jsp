@@ -86,8 +86,9 @@
 	<div id="contents">
 		<c:if test="${followcount != 0}">
 			<div class="nava">
-				<span style="font-size: 18px;">팔로우 요청 알림 </span><span
-					style="color: red;">${followcount}개</span>
+				<div class="request_alarm"></div>
+				<%-- <span style="font-size: 18px;">팔로우 요청 알림 </span><span
+					style="color: red;">${followcount}개</span> --%>
 			</div>
 			<div class="request_user"></div>
 		</c:if>

@@ -110,11 +110,16 @@ public class FollowController {
 
 	@RequestMapping("/follow/request/view")
 	@ResponseBody
-	private List<Follow_request> follow_request_view() throws Exception {
+	private Map follow_request_view() throws Exception {
 		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
-		User u = userService.findByUserId(userId);
-
-		return frService.findByReceiveId(u.getId());
+		User user = userService.findByUserId(userId);
+		
+		Map<String, Object> m = new HashMap<String, Object>();
+		int followcount = frService.countByReceiveId(user.getId());
+		
+		m.put("followcnt", followcount);
+		m.put("fr", frService.findByReceiveId(user.getId()));
+		return m;
 	}
 
 	@RequestMapping("/follow/request/accept/{id}")
