@@ -31,7 +31,7 @@
  MYSQL
 
 ## 기타사용
- JPA, Spring Security
+ JPA, Spring Security, AJAX
   
 
 
