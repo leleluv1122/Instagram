@@ -83,9 +83,11 @@
   ![search](/assets/8.gif)
 
 ## 비공개 계정
-  ![secret_user](/assets/9.gif)
+  ![secret_user1](/assets/18.gif)
 
-  ![secret_user](/assets/10.gif)
+  ![secret_user2](/assets/10.gif)
+
+  ![secret_user3](/assets/9.gif)
 
 ## 계정삭제
   ![delete_user](/assets/12.gif)
