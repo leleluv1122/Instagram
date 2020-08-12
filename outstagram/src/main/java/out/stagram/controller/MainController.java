@@ -356,6 +356,7 @@ public class MainController {
 		chatService.deleteUser(userid);
 		commentService.deleteByUserId(userid);
 		followService.delete_user(userid);
+		frService.out_member(userid);
 
 		userService.deleteById(userid);
 

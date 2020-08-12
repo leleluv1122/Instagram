@@ -18,4 +18,12 @@ public interface Follow_requestRepository extends JpaRepository<Follow_request, 
 	@Modifying
 	@Transactional
 	void deleteByRequestIdAndReceiveId(int id1, int id2);
+	
+	@Modifying
+	@Transactional
+	void deleteByRequestId(int id);
+	
+	@Modifying
+	@Transactional
+	void deleteByReceiveId(int id);
 }

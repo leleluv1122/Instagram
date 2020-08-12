@@ -46,4 +46,9 @@ public class Follow_requestService {
 	public void deleteByRequestIdAndReceiveId(int id1, int id2) {
 		follow_requestRepository.deleteByRequestIdAndReceiveId(id1, id2);
 	}
+	
+	public void out_member(int id) {
+		follow_requestRepository.deleteByRequestId(id);
+		follow_requestRepository.deleteByReceiveId(id);
+	}
 }
