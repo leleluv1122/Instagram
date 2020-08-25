@@ -59,7 +59,7 @@ input.form-control.w200 {
 	<sec:authentication property="user.id" var="currentid" />
 	<sec:authentication property="user.name" var="currentname" />
 	<div class="chat-page">
-		<div id="msg_view">
+		<%-- <div id="msg_view">
 			<c:forEach var="c" items="${chatting}">
 				<div class="hmhm">
 					<c:choose>
@@ -76,7 +76,9 @@ input.form-control.w200 {
 					<br />
 				</div>
 			</c:forEach>
-		</div>
+		</div> --%>
+		<div class="msg_view"></div>
+		<%@ include file="chat.jsp"%>
 
 		<div id="msg_input">
 			<form action="/sendchat" name="form" method="post">
