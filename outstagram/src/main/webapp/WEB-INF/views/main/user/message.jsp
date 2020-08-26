@@ -78,15 +78,14 @@ input.form-control.w200 {
 			</c:forEach>
 		</div> --%>
 		<div class="msg_view"></div>
-		<%@ include file="chat.jsp"%>
 
 		<div id="msg_input">
-			<form action="/sendchat" name="form" method="post">
+			<form name="chatinput">
 				<input type="hidden" name="sendid" value="${currentid}"> <input
 					type="hidden" name="receiveid" value="${page_id}"> <input
 					type="text" class="form-control w200" name="message"
-					placeholder="메시지 보내기..." required>
-				<button type="submit" class="btn btn-primary"
+					class="textiiii" placeholder="메시지 보내기..." required>
+				<button type="button" name="chatbtn" class="btn btn-primary"
 					style="margin-left: 20px;">보내기</button>
 			</form>
 		</div>
@@ -94,5 +93,7 @@ input.form-control.w200 {
 	<div id="footer">
 		<%@ include file="../../include/bottom.jsp"%>
 	</div>
+
+	<%@ include file="chat.jsp"%>
 </body>
 </html>

@@ -1,9 +1,7 @@
 package out.stagram.controller;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import out.stagram.domain.Chat;
@@ -49,21 +48,29 @@ public class ChatController {
 		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
 		User login_user = userService.findByUserId(userId);
 		model.addAttribute("page_id", id);
-		
+
 		List<Chat> chatting = chatService.findBySendIdAndReceiveId(login_user.getId(), id);
 		List<Chat> c = chatService.findBySendIdAndReceiveId(id, login_user.getId());
-		
-		for(Chat t : c) {
+
+		for (Chat t : c) {
 			chatting.add(t);
 		}
-		
+
 		Chat ccc = new Chat();
 		Collections.sort(chatting, ccc);
-		
+
 		model.addAttribute("chatting", chatting);
 		return "/main/user/message";
 	}
 
+	@RequestMapping("/chat/insert")
+	@ResponseBody
+	private int chat_insert(@RequestParam int sendid, @RequestParam int receiveid, @RequestParam String message) throws Exception {
+		chatService.save(receiveid, sendid, message);
+		return 1;
+	}
+
+	// 없애기
 	@RequestMapping("/sendchat")
 	public String message(HttpServletRequest request, Model model) throws Exception {
 		String s = request.getParameter("sendid");
@@ -78,24 +85,24 @@ public class ChatController {
 		String redirect_url = "redirect:/main/user/message/" + receiveid;
 		return redirect_url;
 	}
-	
+
 	@RequestMapping("/chat/list/{id}")
 	@ResponseBody
 	private List<Chat> chatlist(@PathVariable int id) throws Exception {
 		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
 		User login_user = userService.findByUserId(userId);
-		
+
 		List<Chat> chatting = chatService.findBySendIdAndReceiveId(login_user.getId(), id);
 		List<Chat> c = chatService.findBySendIdAndReceiveId(id, login_user.getId());
-		
-		for(Chat t : c) {
+
+		for (Chat t : c) {
 			chatting.add(t);
 		}
-		
+
 		Chat ccc = new Chat();
 		Collections.sort(chatting, ccc);
-		
+
 		return chatting;
 	}
-	
+
 }

@@ -2,8 +2,25 @@
 	pageEncoding="UTF-8"%>
 <script>
 	var id = '${id}';
+
+	$('[name=chatbtn]').click(function() {
+		var insertData = $('[name=chatinput]').serialize();
+		chatInsert(insertData);
+	});
 	
-	// chatting insert 하기남음
+	function chatInsert(insertData) {
+		$.ajax({
+			url: '/chat/insert',
+			type: 'post',
+			data: insertData,
+			success : function(data){
+				if(data == 1){
+					chatlist();
+					$('.textiiii').val('');
+				}
+			}
+		});
+	}
 	
 	function chatlist() {
 		$.ajax({
@@ -18,11 +35,11 @@
 					a += '<div class="hmhm">';
 					if(value.send.id == id) {
 						a += '<div class="sasa">';
-						a += '<span style="float: right">'+ value.content +'</span>';
+						a += '<span style="float: left">'+ value.content +'</span>';
 						a += '</div>';
 					}
 					else {
-						a += '<span style="float: left; margin-left: 50px;">';
+						a += '<span style="float: right; margin-left: 50px;">';
 						a += value.content + '</span>';
 					}
 					a += '<br /></div>';
@@ -34,7 +51,7 @@
 	
 	
 	$(document).ready(function() {
-		chatlist();
-		// setInterval(chatlist, 3000); // 랙많이걸려서 일단주석처리!
+		// chatlist();
+		setInterval(chatlist, 3000); // 랙많이걸려서 일단주석처리!
 	});
 </script>
